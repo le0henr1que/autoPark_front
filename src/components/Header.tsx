@@ -21,7 +21,7 @@
                 <a className="text-sm font-normal leading-relaxed inline-block mr-4 py-2 whitespace-nowrap  text-[#E1861B]" href="/">
                     <h1>Home</h1>
                 </a>
-                <a className="text-sm font-normal leading-relaxed inline-block mr-4 py-2 whitespace-nowrap  text-[#6B7280]" href="/">
+                <a className="text-sm font-normal leading-relaxed inline-block mr-4 py-2 whitespace-nowrap  text-[#6B7280]" href="/Catalogo">
                     <h1>Comprar Carro</h1>
                 </a>
                 <a className="text-sm font-normal leading-relaxed inline-block mr-4 py-2 whitespace-nowrap  text-[#6B7280]" href="/">
@@ -38,9 +38,11 @@
                 <a className="text-sm font-semibold tracking-letterButton leading-relaxed inline-block mr-4 py-2 whitespace-nowrap  text-[#1E1A17;]" href="/">
                     <h1>Cadastre-se</h1>
                 </a>
-                 <button className={`tracking-letterButton text-white font-semibold w-[92px] h-[40px] text-sm flex flex-row justify-center items-center p-[8px 24px] gap-[10px] bg-[#E1861B] rounded-[4px]`}>
-                    Login
-                </button>    
+                 <a href="/Login">
+                    <button className={`tracking-letterButton text-white font-semibold w-[92px] h-[40px] text-sm flex flex-row justify-center items-center p-[8px 24px] gap-[10px] bg-[#E1861B] rounded-[4px]`}>
+                        Login
+                    </button>
+                </a>  
             </div>
             </div>
         </nav>

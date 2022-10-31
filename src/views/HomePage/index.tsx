@@ -26,9 +26,11 @@ function Home() {
             <h1 className='text-lg text-[#4B4845]'>Carros novos e seminovos com preços acessíveis! compre na AutoPark ou venda seu carro para nós!</h1>
           </div>
           <div className='w-[521px]  flex  gap-[38px]'>
-            <button className={`tracking-letterButton leading-[150%] text-white font-semibold w-[177px] h-[56px] text-sm flex flex-row justify-center items-center p-[8px 24px] gap-[10px] bg-[#E1861B] rounded-[4px]`}>
-                Veja o Catálogo
-            </button>   
+            <a href="/Catalogo">
+              <button className={`tracking-letterButton leading-[150%] text-white font-semibold w-[177px] h-[56px] text-sm flex flex-row justify-center items-center p-[8px 24px] gap-[10px] bg-[#E1861B] rounded-[4px]`}>
+                  Veja o Catálogo
+              </button>   
+            </a>
             <button className={`tracking-letterButton leading-[150%] text-[#E1861B] font-semibold w-[259px] h-[56px] text-sm flex flex-row justify-center items-center p-[8px 24px] gap-[10px] rounded-[4px] border border-[#E1861B]`}>
                 Vender ou Trocar de carro
             </button>  

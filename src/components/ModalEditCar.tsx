@@ -25,7 +25,7 @@ function ModalCarEdit({city, brand, model, year, km, price, name,  image, id}:Da
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState<string>("");
     const [error, setError] = useState(false);
-  
+    const [idCar, setIdCar] = useState<string>()
     
     const navigate = useNavigate();
 
@@ -38,15 +38,14 @@ function ModalCarEdit({city, brand, model, year, km, price, name,  image, id}:Da
         // console.log(data.email)
         const token = JSON.parse(localStorage.getItem('user')).token.token
 
-      
-        if(!data.marca){
+        if(!data.localidade || !data.modelo || !data.marca || !data.detalhe || !data.ano || !data.km || !data.price ){
             setMessage("Preencha todos os campos")
             setError(true)
             setLoading(false)
             return
         }
+        
           
-
         
         try{
             const config = {
@@ -57,34 +56,38 @@ function ModalCarEdit({city, brand, model, year, km, price, name,  image, id}:Da
                 "name":data.modelo,
                 "brand":data.marca, 
                 "model":data.detalhe, 
-                "year":"2002", 
+                "year":data.ano, 
                 "km":data.km, 
                 "price":+data.price
            
           }, config).then(async response => {
 
-            console.log(response.data._id)
-            const header = {
-                headers: {  "Content-Type": "multipart/form-data" }
-            };
-        
-          
-            if(data.image){
+            console.log(response.data.Car._id)
+
+            if(data.image.name){
+                const header = {
+                    headers: {  "Content-Type": "multipart/form-data" }
+                };
+            
+              
                 var reader = new FileReader();
                 reader.readAsDataURL(data.image);
-
+    
                     reader.onload = async function () {
-
-                        await api.post(`/upload/car/${response.data._id}/image`, {  
+    
+                        await api.post(`/upload/car/${response.data.Car._id}/image`, {  
                             "image":reader.result
                         }, header).then(response => {
                             console.log(response)
+                            
                         })
-
+    
                     }
             }
+
             setMessage("Veiculo Atualizado com Sucesso")
             setLoading(false)
+            location.reload()
             
           }).catch(error => {
             console.log(error.response.status)
@@ -116,43 +119,47 @@ function ModalCarEdit({city, brand, model, year, km, price, name,  image, id}:Da
         <Dialog.Root>
             <Dialog.Portal>  
             <Dialog.Overlay className='bg-black/60 inset-0 fixed'/>
-                <Dialog.Content className='fixed w-[685px] h-[750px] bg-white  rounded-[15px] p-[50px] top-1/2 left-1/2 w-[480px] rounded-lg -translate-x-1/2 -translate-y-1/2 shadow-lg shadow-black/25'>
+                <Dialog.Content className='fixed w-[690px] h-[870px] bg-white  rounded-[15px] p-[50px] top-1/2 left-1/2 w-[480px] rounded-lg -translate-x-1/2 -translate-y-1/2 shadow-lg shadow-black/25'>
                     <Dialog.Title className='text-3xl text-black font-black'>Edite os dados do veículo</Dialog.Title>
                     <form  onSubmit={handleUpdate} className='mt-8 flex flex-col gap-4'>
 
-                        <div className='flex justify-between gap-[32px] mb-[24px]'>
+                        <div className='flex justify-between gap-[32px] mb-[15px]'>
                             <div>
-                                <label className="block mb-[16px] text-sm font-medium text-[#1E1A17] ">Marca*</label>
+                                <label className="block mb-[10px] text-sm font-medium text-[#1E1A17] ">Marca*</label>
                                 <input id="marca" name="marca" className="border border-[#B9B8B7] w-[280px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center" placeholder='Ex: Fiat ' defaultValue={brand}/> 
             
                             </div>
                             <div>
-                                <label className="block mb-[16px] text-sm font-medium text-[#1E1A17] ">Modelo*</label>
+                                <label className="block mb-[10px] text-sm font-medium text-[#1E1A17] ">Modelo*</label>
                                 <input id="modelo" name="modelo" className="border border-[#B9B8B7] w-[280px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center"  placeholder='Ex: Uno' defaultValue={name}/> 
                             
                         </div>
                         </div>
                     
-                        <div className='flex justify-between gap-[32px] mb-[24px]'>
+                        <div className='flex justify-between gap-[32px] mb-[15px]'>
                             <div>
-                                <label className="block mb-[16px] text-sm font-medium text-[#1E1A17] ">Detalhes do veículo*</label>
-                                <input id="detalhe" name="detalhe" className="border border-[#B9B8B7] w-[280px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center"  placeholder='EX: 1.4 MPFI LTZ 8V FLEX' defaultValue={model}/>
-                        
-                            </div>
-                            <div>
-                                <label className="block mb-[16px] text-sm font-medium text-[#1E1A17] ">localidade*</label>
-                                <input id="localidade" name="localidade" className="border border-[#B9B8B7] w-[280px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center"  placeholder='EX: Osasco - SP' defaultValue={city}/>
+                                <label className="block mb-[10px] text-sm font-medium text-[#1E1A17] ">Detalhes do veículo*</label>
+                                <input id="detalhe" name="detalhe" className="border border-[#B9B8B7] w-[592px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center"  placeholder='EX: 1.4 MPFI LTZ 8V FLEX' defaultValue={model}/>
                         
                             </div>
                         </div>
-
+                        <div className='flex justify-between gap-[32px] mb-[15px]'>
+                            <div>
+                                <label className="block mb-[10px] text-sm font-medium text-[#1E1A17] ">Ano*</label>
+                                <input id="ano" name="ano" className="border border-[#B9B8B7] w-[280px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center"  placeholder='EX: 2002'defaultValue={year} />
+                            </div>
+                            <div>
+                                <label className="block mb-[10px] text-sm font-medium text-[#1E1A17] ">localidade*</label>
+                                <input id="localidade" name="localidade" className="border border-[#B9B8B7] w-[280px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center"  placeholder='EX: Osasco - SP' defaultValue={city}/>
+                            </div>
+                        </div>
                         <div className='flex justify-between gap-[32px] '>
                             <div>
-                                <label className="block mb-[16px] text-sm font-medium text-[#1E1A17] ">Valor*</label>
+                                <label className="block mb-[10px] text-sm font-medium text-[#1E1A17] ">Valor*</label>
                                 <input id="price" name="price" className="border border-[#B9B8B7] w-[280px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center" placeholder='EX: R$ 70.00' defaultValue={price}/> 
                             </div>
                             <div>
-                                <label className="block mb-[16px] text-sm font-medium text-[#1E1A17] ">Quilometragem*</label>
+                                <label className="block mb-[10px] text-sm font-medium text-[#1E1A17] ">Quilometragem*</label>
                                 <input id="km" name="km" className="border border-[#B9B8B7] w-[280px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center"  placeholder='EX: 12.000 km' defaultValue={km}/> 
                                 
                             </div>
@@ -168,12 +175,6 @@ function ModalCarEdit({city, brand, model, year, km, price, name,  image, id}:Da
                                 {message}
                             </div>}
 
-                        {  message  &&
-                            <div className='w-full h-[56px] flex justify-center items-center bg-[#efffec] text-[#4ed400]'>
-                            {message}
-                            </div>
-                        }
-                        
                         <button type="submit" className={`text-black bg-[#E1861B] text-[#FFF] tracking-letterButton font-normal w-full h-[56px] text-sm flex justify-center items-center rounded-[4px]  `}>
                             {loading == false ? "Enviar" : <Load/>}
                         </button> 

@@ -39,7 +39,7 @@ function Dashboard() {
             case "Listar":
                 document.getElementById("cadastrar").style.display = "none";
                 document.getElementById("listar").style.display = "block";
-                location.reload()
+                // location.reload()
                 break;
             case "Cadastrar":
                 document.getElementById("listar").style.display = "none";
@@ -65,12 +65,13 @@ function Dashboard() {
         const token = JSON.parse(localStorage.getItem('user')).token.token
 
       
-        if(!data.marca){
+        if(!data.localidade || !data.modelo || !data.marca || !data.detalhe || !data.ano || !data.km || !data.price ){
             setMessage("Preencha todos os campos")
             setError(true)
             setLoading(false)
             return
         }
+        
           
 
         
@@ -79,11 +80,11 @@ function Dashboard() {
                 headers: { Authorization: `Bearer ${token}` }
             };
             await api.post(`/create/auto`, {
-                "city":"SP - Osasco",
+                "city":data.localidade,
                 "name":data.modelo,
                 "brand":data.marca, 
                 "model":data.detalhe, 
-                "year":"2002", 
+                "year":data.ano, 
                 "km":data.km, 
                 "price":+data.price
            
@@ -112,6 +113,7 @@ function Dashboard() {
 
             setMessage("Veiculo Criado com Sucesso")
             setLoading(false)
+            location.reload()
             
           }).catch(error => {
             console.log(error.response.status)
@@ -159,16 +161,15 @@ function Dashboard() {
         <div className='flex justify-between'>
             <div className='w-[256px] h-screen float-left bg-[white] fixed flex flex justify-center pt-[100px]'>
                 <div>
-                 <img src="/Símbolo-texto-horizontal.svg" className="w-[174px] h-[27px]" />
-                    <div className='mt-[100px] text-[14px] text-[#1E1A17] h-[450px]'>
+                 <img src="/Símbolo-texto-horizontal.svg" className="w-[164px] h-[27px]" />
+                    <div className='mt-[100px] text-[14px] text-[#1E1A17] h-[410px]'>
                         <h1 className='mb-[20px]'>Geral</h1>
 
-                        <h1 className='ml-[52px] gap-[16] text-[16px] mb-[14px] cursor-pointer' onClick={() => handleClickAlterFunction("Listar")}>Listar Veículo</h1>
-                        <h1 className='ml-[52px] gap-[16] text-[16px] cursor-pointer' onClick={() => handleClickAlterFunction("Cadastrar")}>Cadastrar Veículo</h1>
+                        <h1 className='ml-[52px] gap-[16px] text-[16px] mb-[14px] cursor-pointer flex' onClick={() => handleClickAlterFunction("Listar")}><img src="/format-list-bulleted.svg"/> Listar Veículo</h1>
+                        <h1 className='ml-[52px] gap-[16px] text-[16px]  mb-[14px] cursor-pointer flex' onClick={() => handleClickAlterFunction("Cadastrar")}><img src="/car.svg"/>  Cadastrar Veículo</h1>
+                        <h1 className='ml-[52px] gap-[16px] text-[16px] cursor-pointer flex' onClick={handleClickLogOut}><img src="/exit-to-app.svg"/>Sair</h1>
                     </div>
-                    <div>
-                        <h1 className='gap-[16px] cursor-pointer' onClick={handleClickLogOut}>Sair</h1>
-                    </div>
+                  
                 </div>
 
             </div> 
@@ -179,7 +180,7 @@ function Dashboard() {
                     <div className='h-[1000px]' id="listar">
                         <h1 className="text-[#E1861B] text-[24px]  ml-[350px] ">Veículos cadastrados</h1>
                         <h1 className="text-[#919499] text-[16px]  ml-[350px] mb-[50px]">Edite ou delete os veículos que esão cadastrados.</h1>
-                        <div className='w-[1030px]  bg-white ml-[350px] rounded-[15px] p-[50px]'>
+                        <div className='w-[1030px]  bg-white ml-[300px] rounded-[15px] p-[50px]'>
                             <h1 className="text-[#1E1A17] text-[24px] mb-[30px]">Lista de veículos</h1>
                             {loading == true && 
                                 <div className='w-full flex justify-center'>
@@ -233,6 +234,19 @@ function Dashboard() {
                                     </div>
                                 </div>
 
+                                <div className='flex justify-between gap-[32px] mb-[24px]'>
+                                    <div>
+                                        <label className="block mb-[16px] text-sm font-medium text-[#1E1A17] ">Ano*</label>
+                                        <input id="ano" name="ano" className="border border-[#B9B8B7] w-[280px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center"  placeholder='EX: 2002'/>
+                                
+                                    </div>
+                                    <div>
+                                        <label className="block mb-[16px] text-sm font-medium text-[#1E1A17] ">localidade*</label>
+                                        <input id="localidade" name="localidade" className="border border-[#B9B8B7] w-[280px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center"  placeholder='EX: Osasco - SP'/>
+                                
+                                    </div>
+                                </div>
+
                                 <div className='flex justify-between gap-[32px] '>
                                     <div>
                                         <label className="block mb-[16px] text-sm font-medium text-[#1E1A17] ">Valor*</label>
@@ -255,12 +269,6 @@ function Dashboard() {
                                         {message}
                                     </div>}
 
-                            {  message  &&
-                                    <div className='w-full h-[56px] flex justify-center items-center bg-[#efffec] text-[#4ed400]'>
-                                    {message}
-                                    </div>
-                                }
-                                
                                 <button type="submit" className={`text-black bg-[#E1861B] text-[#FFF] tracking-letterButton font-normal w-full h-[56px] text-sm flex justify-center items-center rounded-[4px]  `}>
                                     {loading == false ? "Cadastrar" : <Load/>}
                                 </button> 
