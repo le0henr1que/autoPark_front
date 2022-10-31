@@ -11,7 +11,7 @@ import '../../input.css';
 
 
 
-function Task() {
+function Home() {
   
   return  (
      <>
@@ -286,4 +286,4 @@ function Task() {
   )
 }
 
-export default Task
+export default Home
