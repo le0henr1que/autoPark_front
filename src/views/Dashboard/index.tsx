@@ -178,8 +178,8 @@ function Dashboard() {
                 <div className='mt-[100px]'>
 
                     <div className='h-[1000px]' id="listar">
-                        <h1 className="text-[#E1861B] text-[24px]  ml-[350px] ">Veículos cadastrados</h1>
-                        <h1 className="text-[#919499] text-[16px]  ml-[350px] mb-[50px]">Edite ou delete os veículos que esão cadastrados.</h1>
+                        <h1 className="text-[#E1861B] text-[24px]  ml-[305px] ">Veículos cadastrados</h1>
+                        <h1 className="text-[#919499] text-[16px]  ml-[305px] mb-[50px]">Edite ou delete os veículos que esão cadastrados.</h1>
                         <div className='w-[1030px]  bg-white ml-[300px] rounded-[15px] p-[50px]'>
                             <h1 className="text-[#1E1A17] text-[24px] mb-[30px]">Lista de veículos</h1>
                             {loading == true && 

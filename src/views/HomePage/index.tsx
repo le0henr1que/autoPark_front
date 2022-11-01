@@ -47,33 +47,35 @@ function Home() {
           </div>
 
           <div className='flex justify-center gap-[18px]'>
-            <div className='border border-[#E1861B] w-[385.67px] h-[424px] rounded-[8px] flex flex-col justify-center items-center '>
+            <div className='border border-[#E1861B] w-[385.67px] h-[424px] rounded-[8px] flex flex-col justify-center items-center text-center'>
                 <div><img src="/Big-icons.svg" /></div>
                 <div ><h1 className='font-extrabold text-[24px] text-[#1E1A17] tracking-normal mb-[16px] mt-[32px]'>Reserver e compre online</h1></div>
-                <div className='w-[245px] text-[16px] mb-[40px]'><h1>Veja nosso catálogo de veículos e reserve o seu com total segurança durante o processo.</h1></div>
+                <div className='w-[245px] text-[16px] mb-[40px] '><h1>Veja nosso catálogo de veículos e reserve o seu com total segurança durante o processo.</h1></div>
                 <div>
-                  <button className={`tracking-letterButton  text-white font-normal w-[259px] h-[40px] text-sm flex flex-row justify-center items-center p-[8px 24px] gap-[10px] bg-[#E1861B] rounded-[4px] `}>
-                    Ver catálogo de carros
-                  </button>  
+                  <a href="/Catalogo">
+                    <button className={`tracking-letterButton  text-white font-normal w-[259px] h-[56px] text-sm flex flex-row justify-center items-center p-[8px 24px] gap-[10px] bg-[#E1861B] rounded-[4px] `}>
+                      Ver catálogo de carros
+                    </button>  
+                  </a>
                 </div>
             </div>
-            <div className='text-white bg-[#E1861B] w-[385.67px] h-[424px] rounded-[8px] flex flex-col justify-center items-center '>
+            <div className='text-white bg-[#E1861B] w-[385.67px] h-[424px] rounded-[8px] flex flex-col justify-center items-center text-center pt-[27px]'>
                 <div><img src="/car-icon.svg" /></div>
-                <div ><h1 className='font-extrabold text-[24px] text-white tracking-normal mb-[16px] mt-[32px]'>Reserver e compre online</h1></div>
-                <div className='w-[245px] text-[16px] mb-[40px]'><h1>Veja nosso catálogo de veículos e reserve o seu com total segurança durante o processo.</h1></div>
+                <div ><h1 className='font-extrabold text-[24px] text-white tracking-normal mb-[16px] mt-[32px]'>Venda seu veículo</h1></div>
+                <div className='w-[245px] text-[16px] mb-[40px]'><h1>Insira algumas informações do seu automóvel e receba uma oferta de nossos consultores.</h1></div>
                 <div>
-                  <button className={`text-[#E1861B] bg-white tracking-letterButton font-normal w-[259px] h-[40px] text-sm flex flex-row justify-center items-center p-[8px 24px] gap-[10px] rounded-[4px] `}>
-                    Ver catálogo de carros
+                  <button className={`text-[#E1861B] bg-white tracking-letterButton font-normal w-[259px] h-[56px] text-sm flex flex-row justify-center items-center p-[8px 24px] gap-[10px] rounded-[4px] `}>
+                    Avaliar meu carro
                   </button>  
                 </div>
             </div>
-            <div className='border border-[#E1861B] w-[385.67px] h-[424px] rounded-[8px] flex flex-col justify-center items-center '>
+            <div className='border border-[#E1861B] w-[385.67px] h-[424px] rounded-[8px] flex flex-col justify-center items-center text-center'>
                 <div><img src="/money-icons.svg" /></div>
-                <div ><h1 className='font-extrabold text-[24px] text-[#1E1A17] tracking-normal mb-[16px] mt-[32px]'>Reserver e compre online</h1></div>
-                <div className='w-[245px] text-[16px] mb-[40px]'><h1>Veja nosso catálogo de veículos e reserve o seu com total segurança durante o processo.</h1></div>
+                <div ><h1 className='font-extrabold text-[24px] text-[#1E1A17] tracking-normal mb-[16px] mt-[32px]'>Simule um financiamento</h1></div>
+                <div className='w-[245px] text-[16px] mb-[40px]'><h1>A AutoPark ajuda você a encontrar um financiamento com o melhor custo-benefício.</h1></div>
                 <div>
-                  <button className={`tracking-letterButton  text-white font-normal w-[259px] h-[40px] text-sm flex flex-row justify-center items-center p-[8px 24px] gap-[10px] bg-[#E1861B] rounded-[4px] `}>
-                    Ver catálogo de carros
+                  <button className={`tracking-letterButton  text-white font-normal w-[259px] h-[56px] text-sm flex flex-row justify-center items-center p-[8px 24px] gap-[10px] bg-[#E1861B] rounded-[4px] `}>
+                    Simular financiamento
                   </button>  
                 </div>
             </div> 
@@ -127,18 +129,29 @@ function Home() {
 
       <div className='h-[414px] bg-[#E1861B] flex justify-center mt-[-40px]'>
         <div className='w-[1216px]'>
-          <div className="colum mt-[81px] ml-[90px] float-left">
-            <div className='w-[521px] leading-3'>
-              <h1 className='leading-[116%] text-white text-[34px] font-extrabold text-5xl'>Baixe gratuitamente nosso aplicativo</h1>
+
+          <div className='flex'>
+            <div className="colum mt-[81px] ml-[90px] float-left">
+              <div className='w-[521px] leading-3'>
+                <h1 className='leading-[116%] text-white text-[34px] font-extrabold text-5xl'>Baixe gratuitamente nosso aplicativo</h1>
+              </div>
+              <div className='w-[521px] mt-[16px]'>
+                <h1 className='text-lg text-white'>Veja nosso catálogo e as novidades da Autopark diretamente do seu celular, de forma rápida, prática e sem custo.</h1>
+              </div>
+              <div className='w-[521px]  flex gap-[32px] mt-[19px]'>
+                <img src="/Badge-PlayStore.svg" />
+                <img src="/Badge-AppleStore.svg" />
+              </div>
             </div>
-            <div className='w-[521px] mt-[16px]'>
-              <h1 className='text-lg text-white'>Veja nosso catálogo e as novidades da Autopark diretamente do seu celular, de forma rápida, prática e sem custo.</h1>
-            </div>
-            <div className='w-[521px]  flex gap-[32px] mt-[19px]'>
-              <img src="/Badge-PlayStore.svg" />
-              <img src="/Badge-AppleStore.svg" />
+
+            <div className="absolute ml-[606px]">
+              <img src="/Group809.svg"/>
             </div>
           </div>
+          {/* <div>
+            <img src="/Group809.svg"/>
+          </div> */}
+
         </div>
       </div>
 
@@ -146,7 +159,7 @@ function Home() {
       {/* 1216 */}
 
       <div className='h-[700px] flex justify-center mt-[64px]'>
-        <div className='w-[1216]'>
+        <div className='w-[1216px]'>
 
           <div className='flex justify-between items-center w-full gap-[85px]'>
             
@@ -159,68 +172,95 @@ function Home() {
                 <h1 className='text-[#1E1A17] font-normal text-[16px] w-[520px]'>Referência no mercado, a AutoPark busca entregar a melhor qualidade no setor de automóveis, com seriedade e confiança.</h1>
               </div>
 
-              <div className=' flex justify-center w-[648px]  mb-[40px]'>
-                  <div className='w-[312px] '>
-                    <div className='flex mb-[8px]'>
-                      <h1 className='text-[#1E1A17] font-semibold text-[18px]'>Suporte 24h</h1>
+              <div className=' flex justify-center w-[648px]  mb-[40px] flex-wrap gap-[24px]'>
+
+                  <div className='w-[312px] flex gap-[20px] mb-[24px]'>
+                    <div>
+                      <img src="/clock-time-eight-outline.svg"/>
                     </div>
-                    <div className='flex '>
-                      <h1 className='text-[#1E1A17] font-normal text-[14px] w-[256px]'>Nossa equipe está a disposição 24/7 para atender suas dúvidas.</h1>
+                    <div>
+                      <div className='flex mb-[8px]'>
+                      <h1 className='text-[#1E1A17] font-semibold text-[18px]'>Melhores preços</h1>
+                      </div>
+                      <div className='flex '>
+                        <h1 className='text-[#1E1A17] font-normal text-[14px] w-[256px]'>Na AutoPark você encontra os melhores preços para compra e venda de veículos.</h1>
+                      </div>
+                    </div>
+                  </div>
+                  <div className='w-[312px] flex gap-[20px] mb-[24px]'>
+                    <div>
+                      <img src="/clock-time-eight-outline.svg"/>
+                    </div>
+                    <div>
+                      <div className='flex mb-[8px]'>
+                      <h1 className='text-[#1E1A17] font-semibold text-[18px]'>Melhores preços</h1>
+                      </div>
+                      <div className='flex '>
+                        <h1 className='text-[#1E1A17] font-normal text-[14px] w-[256px]'>Na AutoPark você encontra os melhores preços para compra e venda de veículos.</h1>
+                      </div>
+                    </div>
+                  </div>
+                  <div className='w-[312px] flex gap-[20px] mb-[24px]'>
+                    <div>
+                      <img src="/clock-time-eight-outline.svg"/>
+                    </div>
+                    <div>
+                      <div className='flex mb-[8px]'>
+                      <h1 className='text-[#1E1A17] font-semibold text-[18px]'>Melhores preços</h1>
+                      </div>
+                      <div className='flex '>
+                        <h1 className='text-[#1E1A17] font-normal text-[14px] w-[256px]'>Na AutoPark você encontra os melhores preços para compra e venda de veículos.</h1>
+                      </div>
+                    </div>
+                  </div>
+                  <div className='w-[312px] flex gap-[20px] mb-[24px]'>
+                    <div>
+                      <img src="/clock-time-eight-outline.svg"/>
+                    </div>
+                    <div>
+                      <div className='flex mb-[8px]'>
+                      <h1 className='text-[#1E1A17] font-semibold text-[18px]'>Melhores preços</h1>
+                      </div>
+                      <div className='flex '>
+                        <h1 className='text-[#1E1A17] font-normal text-[14px] w-[256px]'>Na AutoPark você encontra os melhores preços para compra e venda de veículos.</h1>
+                      </div>
+                    </div>
+                  </div>
+                  <div className='w-[312px] flex gap-[20px] mb-[24px]'>
+                    <div>
+                      <img src="/clock-time-eight-outline.svg"/>
+                    </div>
+                    <div>
+                      <div className='flex mb-[8px]'>
+                      <h1 className='text-[#1E1A17] font-semibold text-[18px]'>Melhores preços</h1>
+                      </div>
+                      <div className='flex '>
+                        <h1 className='text-[#1E1A17] font-normal text-[14px] w-[256px]'>Na AutoPark você encontra os melhores preços para compra e venda de veículos.</h1>
+                      </div>
+                    </div>
+                  </div>
+                  <div className='w-[312px] flex gap-[20px] mb-[24px]'>
+                    <div>
+                      <img src="/clock-time-eight-outline.svg"/>
+                    </div>
+                    <div>
+                      <div className='flex mb-[8px]'>
+                      <h1 className='text-[#1E1A17] font-semibold text-[18px]'>Melhores preços</h1>
+                      </div>
+                      <div className='flex '>
+                        <h1 className='text-[#1E1A17] font-normal text-[14px] w-[256px]'>Na AutoPark você encontra os melhores preços para compra e venda de veículos.</h1>
+                      </div>
                     </div>
                   </div>
 
-                  <div className='w-[312px]'>
-                    <div className='flex mb-[8px]'>
-                      <h1 className='text-[#1E1A17] font-semibold text-[18px]'>Suporte 24h</h1>
-                    </div>
-                    <div className='flex '>
-                      <h1 className='text-[#1E1A17] font-normal text-[14px] w-[256px]'>Nossa equipe está a disposição 24/7 para atender suas dúvidas.</h1>
-                    </div>
-                  </div>
+                 
+                </div>
               </div>
-              <div className=' flex justify-center w-[648px]  mb-[40px]'>
-                  <div className='w-[312px] '>
-                    <div className='flex mb-[8px]'>
-                      <h1 className='text-[#1E1A17] font-semibold text-[18px]'>Suporte 24h</h1>
-                    </div>
-                    <div className='flex '>
-                      <h1 className='text-[#1E1A17] font-normal text-[14px] w-[256px]'>Nossa equipe está a disposição 24/7 para atender suas dúvidas.</h1>
-                    </div>
-                  </div>
-
-                  <div className='w-[312px] '>
-                    <div className='flex mb-[8px]'>
-                      <h1 className='text-[#1E1A17] font-semibold text-[18px]'>Suporte 24h</h1>
-                    </div>
-                    <div className='flex '>
-                      <h1 className='text-[#1E1A17] font-normal text-[14px] w-[256px]'>Nossa equipe está a disposição 24/7 para atender suas dúvidas.</h1>
-                    </div>
-                  </div>
-              </div>
-              <div className=' flex justify-center w-[648px]  '>
-                  <div className='w-[312px] '>
-                    <div className='flex mb-[8px]'>
-                      <h1 className='text-[#1E1A17] font-semibold text-[18px]'>Suporte 24h</h1>
-                    </div>
-                    <div className='flex '>
-                      <h1 className='text-[#1E1A17] font-normal text-[14px] w-[256px]'>Nossa equipe está a disposição 24/7 para atender suas dúvidas.</h1>
-                    </div>
-                  </div>
-
-                  <div className='w-[312px] '>
-                    <div className='flex mb-[8px]'>
-                      <h1 className='text-[#1E1A17] font-semibold text-[18px]'>Suporte 24h</h1>
-                    </div>
-                    <div className='flex '>
-                      <h1 className='text-[#1E1A17] font-normal text-[14px] w-[256px]'>Nossa equipe está a disposição 24/7 para atender suas dúvidas.</h1>
-                    </div>
-                  </div>
-              </div>
-            </div>
 
             <div>
               <img src="/lambo2.svg" className='mt-[20px] b-[0px]'/>
             </div>
+
           </div>
         </div>
       </div>
@@ -230,7 +270,7 @@ function Home() {
 
         <div className='w-[50%] h-full bg-[#E1861B] pl-[100px]'>
 
-          <div className="colum mt-[81px] float-right mr-[100px]">
+          <div className="colum mt-[60px] float-right mr-[90px]">
             <div className='w-[521px] leading-3'>
               <h1 className='leading-[116%] text-white text-[34px] font-extrabold text-5xl'>Financie com parcelas que cabem no seu bolso</h1>
             </div>
@@ -245,9 +285,10 @@ function Home() {
           </div>
 
         </div>
-        <div className='w-[1216] w-[50%] h-full bg-black pl-[100px]'>
 
-            <div className="colum mt-[81px] ">
+        <div className='w-[1216] w-[50%] h-full bg-[#1E1A17] pl-[100px]'>
+          
+            <div className="colum mt-[60px] ">
               <div className='w-[521px] leading-3'>
                 <h1 className='leading-[116%] text-white text-[34px] font-extrabold text-5xl'>Venda seu veículo com os melhores preços</h1>
               </div>
@@ -280,7 +321,9 @@ function Home() {
             <CardBuy/>
           </div>
         </div>
-
+        <button className={`text-[#E1861B] bg-white tracking-letterButton font-normal w-[232px] h-[56px] text-sm flex flex-row justify-center items-center p-[8px 24px] gap-[10px] rounded-[4px] `} >
+          Veja o catálogo completo
+        </button> 
       </div>
 
          

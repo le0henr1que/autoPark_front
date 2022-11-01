@@ -119,19 +119,19 @@ function ModalCarEdit({city, brand, model, year, km, price, name,  image, id}:Da
         <Dialog.Root>
             <Dialog.Portal>  
             <Dialog.Overlay className='bg-black/60 inset-0 fixed'/>
-                <Dialog.Content className='fixed w-[690px] h-[870px] bg-white  rounded-[15px] p-[50px] top-1/2 left-1/2 w-[480px] rounded-lg -translate-x-1/2 -translate-y-1/2 shadow-lg shadow-black/25'>
+                <Dialog.Content className='fixed w-[680px]  bg-white  rounded-[15px] p-[50px] top-1/2 left-1/2 w-[480px] rounded-lg -translate-x-1/2 -translate-y-1/2 shadow-lg shadow-black/25'>
                     <Dialog.Title className='text-3xl text-black font-black'>Edite os dados do veículo</Dialog.Title>
-                    <form  onSubmit={handleUpdate} className='mt-8 flex flex-col gap-4'>
+                    <form  onSubmit={handleUpdate} className='mt-8 flex flex-col gap-4 w-[70px] bg-white'>
 
                         <div className='flex justify-between gap-[32px] mb-[15px]'>
                             <div>
                                 <label className="block mb-[10px] text-sm font-medium text-[#1E1A17] ">Marca*</label>
-                                <input id="marca" name="marca" className="border border-[#B9B8B7] w-[280px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center" placeholder='Ex: Fiat ' defaultValue={brand}/> 
+                                <input id="marca" name="marca" className="border border-[#B9B8B7] w-[180px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center" placeholder='Ex: Fiat ' defaultValue={brand}/> 
             
                             </div>
                             <div>
                                 <label className="block mb-[10px] text-sm font-medium text-[#1E1A17] ">Modelo*</label>
-                                <input id="modelo" name="modelo" className="border border-[#B9B8B7] w-[280px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center"  placeholder='Ex: Uno' defaultValue={name}/> 
+                                <input id="modelo" name="modelo" className="border border-[#B9B8B7] w-[180px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center"  placeholder='Ex: Uno' defaultValue={name}/> 
                             
                         </div>
                         </div>
@@ -139,28 +139,28 @@ function ModalCarEdit({city, brand, model, year, km, price, name,  image, id}:Da
                         <div className='flex justify-between gap-[32px] mb-[15px]'>
                             <div>
                                 <label className="block mb-[10px] text-sm font-medium text-[#1E1A17] ">Detalhes do veículo*</label>
-                                <input id="detalhe" name="detalhe" className="border border-[#B9B8B7] w-[592px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center"  placeholder='EX: 1.4 MPFI LTZ 8V FLEX' defaultValue={model}/>
+                                <input id="detalhe" name="detalhe" className="border border-[#B9B8B7] w-[394px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center"  placeholder='EX: 1.4 MPFI LTZ 8V FLEX' defaultValue={model}/>
                         
                             </div>
                         </div>
                         <div className='flex justify-between gap-[32px] mb-[15px]'>
                             <div>
                                 <label className="block mb-[10px] text-sm font-medium text-[#1E1A17] ">Ano*</label>
-                                <input id="ano" name="ano" className="border border-[#B9B8B7] w-[280px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center"  placeholder='EX: 2002'defaultValue={year} />
+                                <input id="ano" name="ano" className="border border-[#B9B8B7] w-[180px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center"  placeholder='EX: 2002'defaultValue={year} />
                             </div>
                             <div>
                                 <label className="block mb-[10px] text-sm font-medium text-[#1E1A17] ">localidade*</label>
-                                <input id="localidade" name="localidade" className="border border-[#B9B8B7] w-[280px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center"  placeholder='EX: Osasco - SP' defaultValue={city}/>
+                                <input id="localidade" name="localidade" className="border border-[#B9B8B7] w-[180px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center"  placeholder='EX: Osasco - SP' defaultValue={city}/>
                             </div>
                         </div>
                         <div className='flex justify-between gap-[32px] '>
                             <div>
                                 <label className="block mb-[10px] text-sm font-medium text-[#1E1A17] ">Valor*</label>
-                                <input id="price" name="price" className="border border-[#B9B8B7] w-[280px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center" placeholder='EX: R$ 70.00' defaultValue={price}/> 
+                                <input id="price" name="price" className="border border-[#B9B8B7] w-[180px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center" placeholder='EX: R$ 70.00' defaultValue={price}/> 
                             </div>
                             <div>
                                 <label className="block mb-[10px] text-sm font-medium text-[#1E1A17] ">Quilometragem*</label>
-                                <input id="km" name="km" className="border border-[#B9B8B7] w-[280px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center"  placeholder='EX: 12.000 km' defaultValue={km}/> 
+                                <input id="km" name="km" className="border border-[#B9B8B7] w-[180px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center"  placeholder='EX: 12.000 km' defaultValue={km}/> 
                                 
                             </div>
                         </div>
