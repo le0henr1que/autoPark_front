@@ -11,7 +11,7 @@ module.exports = {
         letterButton:'0.03em'
       }, 
       fontFamily:{
-        'NunitoSans':['Nunito Sans', 'sans-serif']
+        'nunitoRegular':['Nunito Sans', 'sans-serif']
       }
 
     },

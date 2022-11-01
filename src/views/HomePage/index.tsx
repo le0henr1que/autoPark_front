@@ -43,14 +43,14 @@ function Home() {
       <div className='h-[520px] flex justify-center'>
         <div className='w-[1216px]'>
           <div className='flex justify-center mt-[64px] mb-[64px]'>
-            <h1 className='text-[#1E1A17] font-semibold text-[34px]'>O que a AutoPark <span className='text-[#E1861B]'>oferece?</span></h1>
+            <h1 className='text-[#1E1A17] font-semibold text-[34px] tracking-letterButton'>O que a AutoPark <span className='text-[#E1861B]'>oferece?</span></h1>
           </div>
 
           <div className='flex justify-center gap-[18px]'>
             <div className='border border-[#E1861B] w-[385.67px] h-[424px] rounded-[8px] flex flex-col justify-center items-center text-center'>
                 <div><img src="/Big-icons.svg" /></div>
-                <div ><h1 className='font-extrabold text-[24px] text-[#1E1A17] tracking-normal mb-[16px] mt-[32px]'>Reserver e compre online</h1></div>
-                <div className='w-[245px] text-[16px] mb-[40px] '><h1>Veja nosso catálogo de veículos e reserve o seu com total segurança durante o processo.</h1></div>
+                <div ><h1 className='font-extrabold text-[24px] text-[#1E1A17] tracking-normal mb-[16px] mt-[32px] tracking-letterButton'>Reserver e compre online</h1></div>
+                <div className='w-[245px] text-[16px] mb-[40px] font-normal tracking-letterButton'><h1>Veja nosso catálogo de veículos e reserve o seu com total segurança durante o processo.</h1></div>
                 <div>
                   <a href="/Catalogo">
                     <button className={`tracking-letterButton  text-white font-normal w-[259px] h-[56px] text-sm flex flex-row justify-center items-center p-[8px 24px] gap-[10px] bg-[#E1861B] rounded-[4px] `}>
@@ -61,8 +61,8 @@ function Home() {
             </div>
             <div className='text-white bg-[#E1861B] w-[385.67px] h-[424px] rounded-[8px] flex flex-col justify-center items-center text-center pt-[27px]'>
                 <div><img src="/car-icon.svg" /></div>
-                <div ><h1 className='font-extrabold text-[24px] text-white tracking-normal mb-[16px] mt-[32px]'>Venda seu veículo</h1></div>
-                <div className='w-[245px] text-[16px] mb-[40px]'><h1>Insira algumas informações do seu automóvel e receba uma oferta de nossos consultores.</h1></div>
+                <div ><h1 className='font-extrabold text-[24px] text-white tracking-normal mb-[16px] mt-[32px] tracking-letterButton'>Venda seu veículo</h1></div>
+                <div className='w-[245px] text-[16px] mb-[40px] font-regular tracking-letterButton'><h1>Insira algumas informações do seu automóvel e receba uma oferta de nossos consultores.</h1></div>
                 <div>
                   <button className={`text-[#E1861B] bg-white tracking-letterButton font-normal w-[259px] h-[56px] text-sm flex flex-row justify-center items-center p-[8px 24px] gap-[10px] rounded-[4px] `}>
                     Avaliar meu carro
@@ -71,10 +71,10 @@ function Home() {
             </div>
             <div className='border border-[#E1861B] w-[385.67px] h-[424px] rounded-[8px] flex flex-col justify-center items-center text-center'>
                 <div><img src="/money-icons.svg" /></div>
-                <div ><h1 className='font-extrabold text-[24px] text-[#1E1A17] tracking-normal mb-[16px] mt-[32px]'>Simule um financiamento</h1></div>
-                <div className='w-[245px] text-[16px] mb-[40px]'><h1>A AutoPark ajuda você a encontrar um financiamento com o melhor custo-benefício.</h1></div>
+                <div ><h1 className='font-extrabold text-[24px] tracking-letterButton text-[#1E1A17] tracking-normal mb-[16px] mt-[32px]'>Simule um financiamento</h1></div>
+                <div className='w-[245px] text-[16px] mb-[40px] font-normal tracking-letterButton'><h1>A AutoPark ajuda você a encontrar um financiamento com o melhor custo-benefício.</h1></div>
                 <div>
-                  <button className={`tracking-letterButton  text-white font-normal w-[259px] h-[56px] text-sm flex flex-row justify-center items-center p-[8px 24px] gap-[10px] bg-[#E1861B] rounded-[4px] `}>
+                  <button className={`tracking-letterButton tracking-letterButton text-white font-normal w-[259px] h-[56px] text-sm flex flex-row justify-center items-center p-[8px 24px] gap-[10px] bg-[#E1861B] rounded-[4px] `}>
                     Simular financiamento
                   </button>  
                 </div>
