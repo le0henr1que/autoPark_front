@@ -16,28 +16,33 @@ function Home() {
   return  (
      <>
       <Header />
-      <div className='bg-[#FEF5E7] h-[604px] flex justify-between'>
-        <div className="colum mt-[102px] ml-[112px] float-left">
-
-          <div className='w-[521px] leading-3'>
-            <h1 className='leading-[116%] text-[#1E1A17] font-extrabold text-5xl'>Garanta seu novo carro com o <span className='text-[#E1861B]'>melhor preço do mercado</span></h1>
+      <div className='bg-[#FEF5E7] h-[604px] flex justify-center w-ful'>
+        <div className="mt-[102px] w-[1216px]">
+          <div className='flex'>
+          <div className='flex flex-col'>
+            <div className='w-[521px] leading-3 flex'>
+              <h1 className='leading-[116%] text-[#1E1A17] font-extrabold text-5xl'>Garanta seu novo carro com o <span className='text-[#E1861B]'>melhor preço do mercado</span></h1>
+            </div>
+            <div className='w-[521px] mb-[48px] mt-[24px]'>
+              <h1 className='text-lg text-[#4B4845]'>Carros novos e seminovos com preços acessíveis! compre na AutoPark ou venda seu carro para nós!</h1>
+            </div>
+            <div className='w-[521px]  flex  gap-[38px]'>
+              <a href="/Catalogo">
+                <button className={`tracking-letterButton leading-[150%] text-white font-semibold w-[177px] h-[56px] text-sm flex flex-row justify-center items-center p-[8px 24px] gap-[10px] bg-[#E1861B] rounded-[4px]`}>
+                    Veja o Catálogo
+                </button>   
+              </a>
+              <button className={`tracking-letterButton leading-[150%] text-[#E1861B] font-semibold w-[259px] h-[56px] text-sm flex flex-row justify-center items-center p-[8px 24px] gap-[10px] rounded-[4px] border border-[#E1861B]`}>
+                  Vender ou Trocar de carro
+              </button>  
+            </div>
           </div>
-          <div className='w-[521px] mb-[48px] mt-[24px]'>
-            <h1 className='text-lg text-[#4B4845]'>Carros novos e seminovos com preços acessíveis! compre na AutoPark ou venda seu carro para nós!</h1>
+        
+          <div className="absolute ml-[590px] "> 
+            <img src="/simbolo.svg" />
           </div>
-          <div className='w-[521px]  flex  gap-[38px]'>
-            <a href="/Catalogo">
-              <button className={`tracking-letterButton leading-[150%] text-white font-semibold w-[177px] h-[56px] text-sm flex flex-row justify-center items-center p-[8px 24px] gap-[10px] bg-[#E1861B] rounded-[4px]`}>
-                  Veja o Catálogo
-              </button>   
-            </a>
-            <button className={`tracking-letterButton leading-[150%] text-[#E1861B] font-semibold w-[259px] h-[56px] text-sm flex flex-row justify-center items-center p-[8px 24px] gap-[10px] rounded-[4px] border border-[#E1861B]`}>
-                Vender ou Trocar de carro
-            </button>  
+          
           </div>
-        </div>
-        <div className="mt-[102px] mb-[0px] ml-[70px] float-right"> 
-          <img src="/simbolo.svg" className="w-[783px] h-[506px]"/>
         </div>
       </div>
       <div className='h-[520px] flex justify-center'>
