@@ -105,7 +105,7 @@ yarn dev
 
 #### 📄 IMPORTANTE
 
-Candidatos para as vagas respectivas ao cargos de UX e Desenvolvedor Jr na Verzerl
+Candidatos para as vagas respectivas ao cargos de UX e Desenvolvedor Jr na Verzel
 
 Visto isso, achamos interessante fazermos essa relação entre o UX/UI Design e o desenvolvimento nesse teste prático.
 
