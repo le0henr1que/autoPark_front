@@ -29,15 +29,20 @@ function Catalogo() {
 
   const [catalogoList, setCatalogoList] = useState<DataCar[]>([])
   const [load, setLoad] = useState(true)
-  const [filter, setFilter] = useState(true)
-  
-  
+  const [searchInput, setSearchInput] = useState('');
+  const [filteredResults, setFilteredResults] = useState<DataCar[]>([]);
+ 
+  // const filteredData = APIData.filter((item) => {
+  //   return Object.values(item).join('').toLowerCase().includes(searchInput.toLowerCase())
+  //   })
+    
   useEffect(() => {
     
       api.get(`/list/auto`)
       .then((response) =>{
         console.log(response.data)
         
+        setFilteredResults(response.data.Cars)
         setCatalogoList(response.data.Cars)
         setLoad(false)
       })
@@ -45,8 +50,21 @@ function Catalogo() {
         console.log("[ERROR LIST] "+ error)
       })
     
-
-  }, [])
+      
+    }, [])
+    
+    const searchItems = (searchValue:string) => {
+      setSearchInput(searchValue)
+      if (searchInput !== '') {
+          const filteredData = catalogoList.filter((item) => {
+              return Object.values(item).join('').toLowerCase().includes(searchInput.toLowerCase())
+          })
+          setFilteredResults(filteredData)
+      }
+      else{
+          setFilteredResults(catalogoList)
+      }
+  }
   // catalogoList.filter(index.brand == "Fiat")
   // filter
   //  catalogoList.filter(function(catalogoList) { return catalogoList == filter })
@@ -58,10 +76,10 @@ function Catalogo() {
 
               <div className='flex justify-between items-center mb-[40px]'>
                 <div className='w-[521px] leading-3'>
-                  <h1 className='leading-[116%] text-[#1E1A17] font-extrabold text-[18px] mt-[-10px]'>Encontramos <span className='text-[#E1861B]'>120 veículos</span> a partir dos filtros selecionados</h1>
+                  <h1 className='leading-[116%] text-[#1E1A17] font-extrabold text-[18px] mt-[-10px]'>Encontramos <span className='text-[#E1861B]'>{filteredResults.length} veículos</span> a partir dos filtros selecionados</h1>
                 </div>
                 <div className="mb-4">
-                    <input className="border border-[#B9B8B7] w-[383px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center" id="username" type="text" placeholder="Pesquisar" onChange={e => setFilter(e.target.value)}/>
+                    <input className="border border-[#B9B8B7] w-[383px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center" id="username" type="text" placeholder="Pesquisar" onChange={(e) => searchItems(e.target.value)}/>
                     <div className='mt-[-40px] ml-[340px]'><MagnifyingGlass size={25}/></div>
                 </div>  
               </div>
@@ -95,7 +113,7 @@ function Catalogo() {
                   <Accordion.AccordionItem value="item-1" className="border-t pt-[20px] ">
                     <Accordion.AccordionTrigger className="cursor-pointer font-bold text-[18px] text-[#1E1A17]">Estado</Accordion.AccordionTrigger>
 
-                    <Accordion.AccordionContent className="ml-[10px] mb-[20px] cursor-pointer mt-[20px] text-[#1E1A17]">São Paulo</Accordion.AccordionContent>
+                    <Accordion.AccordionContent className="ml-[10px] mb-[20px] cursor-pointer mt-[20px] text-[#1E1A17]" >São Paulo</Accordion.AccordionContent>
                     <Accordion.AccordionContent className="ml-[10px] mb-[20px] cursor-pointer text-[#1E1A17]">Minas Gerais</Accordion.AccordionContent>
                     <Accordion.AccordionContent className="ml-[10px] mb-[20px] cursor-pointer text-[#1E1A17]">Rio de Janeiro</Accordion.AccordionContent>
                     <Accordion.AccordionContent className="ml-[10px] mb-[20px] cursor-pointer text-[#1E1A17]">Paraná</Accordion.AccordionContent>
@@ -189,7 +207,7 @@ function Catalogo() {
                       <Load />
                   </div>}
                   {
-                    catalogoList.map((index) => (
+                    filteredResults.map((index) => (
                       <CardBuy 
                         
                         image={index.image}

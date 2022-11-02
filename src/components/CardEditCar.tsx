@@ -80,6 +80,7 @@ const hendleDeleteCar = (idCar:string) => {
   })
    
 }
+// console.log(image)
 
    return (
     <div className='w-[280px] h-[550px] shadow-md border rounded-[8px]'>

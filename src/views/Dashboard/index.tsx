@@ -91,12 +91,13 @@ function Dashboard() {
            
           }, config).then(async response => {
 
-            console.log(response.data._id)
+            await response.data._id
+    
             const header = {
                 headers: {  "Content-Type": "multipart/form-data" }
             };
-        
-          
+
+            console.log(response.data._id)
 
             var reader = new FileReader();
             reader.readAsDataURL(data.image);
@@ -108,13 +109,14 @@ function Dashboard() {
                     }, header).then(response => {
                         console.log(response)
 
-                    })
+                    }).catch(err => console.log(err))
 
                 }
 
-            setMessage("Veiculo Criado com Sucesso")
-            setLoading(false)
-            location.reload()
+            await setMessage("Veiculo Criado com Sucesso")
+            await setLoading(false)
+
+            await location.reload()
             
           }).catch(error => {
             console.log(error.response.status)

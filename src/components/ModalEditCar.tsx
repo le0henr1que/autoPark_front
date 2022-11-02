@@ -156,7 +156,7 @@ function ModalCarEdit({city, brand, model, year, km, price, name,  image, id}:Da
                             <div>
                                 <label className="block mb-[10px] text-sm font-medium text-[#1E1A17] ">Valor*</label>
                                 {/* <CurrencyInput defaultValue={price} intlConfig={{ locale: 'pt-BE', currency: 'BRL' }} className="border border-[#B9B8B7] w-[180px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center" />; */}
-                                <CurrencyInput defaultValue={price} intlConfig={{ locale: 'pt-BE', currency: 'BRL' }} id="price" name="price" className="border border-[#B9B8B7] w-[180px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center" placeholder='EX: R$ 70.00' defaultValue={price}/> 
+                                <CurrencyInput defaultValue={price} intlConfig={{ locale: 'pt-BE', currency: 'BRL' }} id="price" name="price" className="border border-[#B9B8B7] w-[180px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center" placeholder='EX: R$ 70.00'/> 
                             </div>
                             <div>
                                 <label className="block mb-[10px] text-sm font-medium text-[#1E1A17] ">Quilometragem*</label>
