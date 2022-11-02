@@ -8,6 +8,7 @@ import * as ToggleGroup from '@radix-ui/react-toggle-group'
 import '../../input.css';
 import api from '../../Services/api';
 import { useNavigate } from 'react-router';
+import CurrencyInput from 'react-currency-input-field';
 
 
 interface DataCar {
@@ -86,7 +87,7 @@ function Dashboard() {
                 "model":data.detalhe, 
                 "year":data.ano, 
                 "km":data.km, 
-                "price":+data.price
+                "price":parseInt(data.price.replace("R$", "").replace(".", ""))
            
           }, config).then(async response => {
 
@@ -250,7 +251,7 @@ function Dashboard() {
                                 <div className='flex justify-between gap-[32px] '>
                                     <div>
                                         <label className="block mb-[16px] text-sm font-medium text-[#1E1A17] ">Valor*</label>
-                                        <input id="price" name="price" className="border border-[#B9B8B7] w-[280px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center" placeholder='EX: R$ 70.00'/> 
+                                        <CurrencyInput intlConfig={{ locale: 'pt-BE', currency: 'BRL' }} id="price" name="price" className="border border-[#B9B8B7] w-[280px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center" placeholder='EX: R$ 70.00'/> 
                                     </div>
                                     <div>
                                         <label className="block mb-[16px] text-sm font-medium text-[#1E1A17] ">Quilometragem*</label>

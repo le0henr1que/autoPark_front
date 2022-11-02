@@ -19,7 +19,46 @@ export interface DataCar {
 }
 
 function CardEditCar({city, brand, model, year, km, price, name,  image, id}:DataCar){
+    function converterFloatReal(valor){
+        var inteiro = null, decimal = null, c = null, j = null;
+        var aux = new Array();
+        valor = ""+valor;
+        c = valor.indexOf(".",0);
+      
+        if(c > 0){
+         
+           inteiro = valor.substring(0,c);
+           decimal = valor.substring(c+1,valor.length);
+        } else{
+           inteiro = valor;
+        }
+     
+
+        for (j = inteiro.length, c = 0; j > 0; j-=3, c++){
+              aux[c]=inteiro.substring(j-3,j);
+        }
+     
+
+        inteiro = "";
+        for(c = aux.length-1; c >= 0; c--){
+           inteiro += aux[c]+'.';
+        }
     
+     
+        inteiro = inteiro.substring(0,inteiro.length-1);
+     
+        decimal = parseInt(decimal);
+        if(isNaN(decimal)){
+           decimal = "00";
+        } else{
+           decimal = ""+decimal;
+           if(decimal.length === 1){
+              decimal = "0"+decimal;
+           }
+        }
+        valor = inteiro+","+decimal;
+        return valor;
+    }
 const hendleDeleteCar = (idCar:string) => {
 
     const token = JSON.parse(localStorage.getItem('user')).token.token
@@ -64,7 +103,7 @@ const hendleDeleteCar = (idCar:string) => {
         
         <div className='flex flex-col justify-start mb-[16px]'>
             <h1 className='text-[#898E99] text-[14px]'>Apenas</h1>
-            <h1 className='text-[#E1861B] text-[28px]'>R$ {price}</h1>
+            <h1 className='text-[#E1861B] text-[28px]'>R$ {converterFloatReal(price)}</h1>
         </div>
         <ModalCarEdit id={id} city={city} name={name} brand={brand} model={model} year={year} km={km} price={price} image={image}/>
 

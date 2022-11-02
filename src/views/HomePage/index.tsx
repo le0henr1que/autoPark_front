@@ -6,13 +6,40 @@ import Header from '../../components/Header';
 import CardBuy from "../../components/CardBuyCar"
 
 import '../../input.css';
+import api from '../../Services/api';
 
 
 
+
+interface DataCar {
+  city:string,
+  name:string
+  brand:string, 
+  model:string, 
+  year:string, 
+  km:string, 
+  price:number,
+  image:string
+}
 
 
 function Home() {
+  const [catalogoList, setCatalogoList] = useState<DataCar[]>([])
+
+  useEffect(() => {
+    
+    api.get(`/list/auto`)
+    .then((response) =>{
+      console.log(response.data)
+      
+      setCatalogoList(response.data.Cars)
+    })
+    .catch((error) => {
+      console.log("[ERROR LIST] "+ error)
+    })
   
+
+}, [])
   return  (
      <>
       <Header />
@@ -118,9 +145,11 @@ function Home() {
               </div>          
               </div>
               <div className='flex justify-start mb-[24px] w-[617px]'>
-                <button className={`text-white bg-[#E1861B] tracking-letterButton font-normal w-[617px] h-[56px] text-sm flex flex-row justify-center items-center p-[8px 24px] gap-[10px] rounded-[4px] `}>
-                  Ver catálogo de carros
-                </button>             
+                <a href="/Catalogo">
+                  <button className={`text-white bg-[#E1861B] tracking-letterButton font-normal w-[617px] h-[56px] text-sm flex flex-row justify-center items-center p-[8px 24px] gap-[10px] rounded-[4px] `}>
+                    Ver catálogo de carros
+                  </button>  
+                </a>           
               </div>
               <div className='flex justify-center mb-[24px] '>
                 <h1 className='text-[#1E1A17] font-normal text-[16px]'>Não lembra o número da placa? <span className='text-[#E1861B]'>Busque seu carro pelo modelo</span></h1>
@@ -185,75 +214,75 @@ function Home() {
                     </div>
                     <div>
                       <div className='flex mb-[8px]'>
-                      <h1 className='text-[#1E1A17] font-semibold text-[18px]'>Melhores preços</h1>
+                      <h1 className='text-[#1E1A17] font-semibold text-[18px]'>Suporte 24h</h1>
                       </div>
                       <div className='flex '>
-                        <h1 className='text-[#1E1A17] font-normal text-[14px] w-[256px]'>Na AutoPark você encontra os melhores preços para compra e venda de veículos.</h1>
+                        <h1 className='text-[#686664] font-normal text-[14px] w-[256px]'>Nossa equipe está a disposição 24/7 para atender suas dúvidas.</h1>
                       </div>
                     </div>
                   </div>
                   <div className='w-[312px] flex gap-[20px] mb-[24px]'>
                     <div>
-                      <img src="/clock-time-eight-outline.svg"/>
+                      <img src="/fastClock.svg"/>
+                    </div>
+                    <div>
+                      <div className='flex mb-[8px]'>
+                      <h1 className='text-[#1E1A17] font-semibold text-[18px]'>Agilidade</h1>
+                      </div>
+                      <div className='flex '>
+                        <h1 className='text-[#686664] font-normal text-[14px] w-[256px]'>Compre e venda seu carro rapidamente, sem burocracia.</h1>
+                      </div>
+                    </div>
+                  </div>
+                  <div className='w-[312px] flex gap-[20px] mb-[24px]'>
+                    <div>
+                      <img src="/moneyicon.svg"/>
                     </div>
                     <div>
                       <div className='flex mb-[8px]'>
                       <h1 className='text-[#1E1A17] font-semibold text-[18px]'>Melhores preços</h1>
                       </div>
                       <div className='flex '>
-                        <h1 className='text-[#1E1A17] font-normal text-[14px] w-[256px]'>Na AutoPark você encontra os melhores preços para compra e venda de veículos.</h1>
+                        <h1 className='text-[#686664] font-normal text-[14px] w-[256px]'>Na AutoPark você encontra os melhores preços para compra e venda de veículos.</h1>
                       </div>
                     </div>
                   </div>
                   <div className='w-[312px] flex gap-[20px] mb-[24px]'>
                     <div>
-                      <img src="/clock-time-eight-outline.svg"/>
+                      <img src="/moneyFast.svg"/>
                     </div>
                     <div>
                       <div className='flex mb-[8px]'>
-                      <h1 className='text-[#1E1A17] font-semibold text-[18px]'>Melhores preços</h1>
+                      <h1 className='text-[#1E1A17] font-semibold text-[18px]'>Depósito rápido</h1>
                       </div>
                       <div className='flex '>
-                        <h1 className='text-[#1E1A17] font-normal text-[14px] w-[256px]'>Na AutoPark você encontra os melhores preços para compra e venda de veículos.</h1>
+                        <h1 className='text-[#686664] font-normal text-[14px] w-[256px]'>O depósito da venda cai na conta em até 24 horas.</h1>
                       </div>
                     </div>
                   </div>
                   <div className='w-[312px] flex gap-[20px] mb-[24px]'>
                     <div>
-                      <img src="/clock-time-eight-outline.svg"/>
+                      <img src="/shopIcon.svg"/>
                     </div>
                     <div>
                       <div className='flex mb-[8px]'>
-                      <h1 className='text-[#1E1A17] font-semibold text-[18px]'>Melhores preços</h1>
+                      <h1 className='text-[#1E1A17] font-semibold text-[18px]'>Inúmeras Lojas</h1>
                       </div>
                       <div className='flex '>
-                        <h1 className='text-[#1E1A17] font-normal text-[14px] w-[256px]'>Na AutoPark você encontra os melhores preços para compra e venda de veículos.</h1>
+                        <h1 className='text-[#686664] font-normal text-[14px] w-[256px]'>Estamos presentes em mais de 70 cidades e em 11 estados do Brasil.</h1>
                       </div>
                     </div>
                   </div>
                   <div className='w-[312px] flex gap-[20px] mb-[24px]'>
                     <div>
-                      <img src="/clock-time-eight-outline.svg"/>
+                      <img src="/shield.svg"/>
                     </div>
                     <div>
                       <div className='flex mb-[8px]'>
-                      <h1 className='text-[#1E1A17] font-semibold text-[18px]'>Melhores preços</h1>
+                      <h1 className='text-[#1E1A17] font-semibold text-[18px]'>Totalmente seguro</h1>
                       </div>
                       <div className='flex '>
-                        <h1 className='text-[#1E1A17] font-normal text-[14px] w-[256px]'>Na AutoPark você encontra os melhores preços para compra e venda de veículos.</h1>
-                      </div>
-                    </div>
-                  </div>
-                  <div className='w-[312px] flex gap-[20px] mb-[24px]'>
-                    <div>
-                      <img src="/clock-time-eight-outline.svg"/>
-                    </div>
-                    <div>
-                      <div className='flex mb-[8px]'>
-                      <h1 className='text-[#1E1A17] font-semibold text-[18px]'>Melhores preços</h1>
-                      </div>
-                      <div className='flex '>
-                        <h1 className='text-[#1E1A17] font-normal text-[14px] w-[256px]'>Na AutoPark você encontra os melhores preços para compra e venda de veículos.</h1>
+                        <h1 className='text-[#686664] font-normal text-[14px] w-[256px]'>A AutoPark preza pela segurança dos dados e transações de nossos clientes.</h1>
                       </div>
                     </div>
                   </div>
@@ -318,20 +347,36 @@ function Home() {
           <h1 className='text-[#1E1A17] font-semibold text-[16px]'>Saiba quais são as últimas ofertas que a AutoPark oferece para você.</h1>
         </div>
 
-        <div className="mt-[35px] flex justify-center ">
+        <div className="mt-[65px] flex justify-center ">
           <div className='w-[1216] flex justify-content gap-[32px]'>
-            <CardBuy/>
-            <CardBuy/>
-            <CardBuy/>
-            <CardBuy/>
-          </div>
+          {
+              catalogoList.map((index) => (
+                <CardBuy 
+                  
+                  image={index.image}
+                  city={index.city} 
+                  brand={index.brand} 
+                  model={index.model} 
+                  year={index.year} 
+                  km={index.km} 
+                  price={index.price} 
+                  name={index.name}/>
+              ))
+            }
+          </div>     
         </div>
-        <button className={`text-[#E1861B] bg-white tracking-letterButton font-normal w-[232px] h-[56px] text-sm flex flex-row justify-center items-center p-[8px 24px] gap-[10px] rounded-[4px] `} >
-          Veja o catálogo completo
-        </button> 
+      </div>
+      <div className='flex justify-center mt-[50px]'>
+        <a href="/Catalogo">
+          <button className={`text-white bg-[#E1861B] tracking-letterButton font-normal w-[255px] h-[56px] text-sm flex flex-row justify-center items-center p-[8px 24px] gap-[10px] rounded-[4px] `} >
+            Veja o catálogo completo
+          </button> 
+        </a>
+      </div>
+      <div className='flex w-full justify-center mt-[100px] bg-[#1E1A17]'>
+        <img src="/Footer.svg"/>
       </div>
 
-         
     </>
   )
 }

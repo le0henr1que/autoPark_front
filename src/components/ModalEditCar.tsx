@@ -5,7 +5,7 @@ import api from "../Services/api";
 import * as Dialog from '@radix-ui/react-dialog';
 import Load from "./load"
 import { useNavigate } from "react-router";
-
+import CurrencyInput from 'react-currency-input-field';
 //  import {logo} from '/public/logo.png'
 
 export interface DataCar {
@@ -58,7 +58,7 @@ function ModalCarEdit({city, brand, model, year, km, price, name,  image, id}:Da
                 "model":data.detalhe, 
                 "year":data.ano, 
                 "km":data.km, 
-                "price":+data.price
+                "price":parseInt(data.price.replace("R$", "").replace(".", ""))
            
           }, config).then(async response => {
 
@@ -132,7 +132,6 @@ function ModalCarEdit({city, brand, model, year, km, price, name,  image, id}:Da
                             <div>
                                 <label className="block mb-[10px] text-sm font-medium text-[#1E1A17] ">Modelo*</label>
                                 <input id="modelo" name="modelo" className="border border-[#B9B8B7] w-[180px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center"  placeholder='Ex: Uno' defaultValue={name}/> 
-                            
                         </div>
                         </div>
                     
@@ -156,7 +155,8 @@ function ModalCarEdit({city, brand, model, year, km, price, name,  image, id}:Da
                         <div className='flex justify-between gap-[32px] '>
                             <div>
                                 <label className="block mb-[10px] text-sm font-medium text-[#1E1A17] ">Valor*</label>
-                                <input id="price" name="price" className="border border-[#B9B8B7] w-[180px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center" placeholder='EX: R$ 70.00' defaultValue={price}/> 
+                                {/* <CurrencyInput defaultValue={price} intlConfig={{ locale: 'pt-BE', currency: 'BRL' }} className="border border-[#B9B8B7] w-[180px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center" />; */}
+                                <CurrencyInput defaultValue={price} intlConfig={{ locale: 'pt-BE', currency: 'BRL' }} id="price" name="price" className="border border-[#B9B8B7] w-[180px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center" placeholder='EX: R$ 70.00' defaultValue={price}/> 
                             </div>
                             <div>
                                 <label className="block mb-[10px] text-sm font-medium text-[#1E1A17] ">Quilometragem*</label>
