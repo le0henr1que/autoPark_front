@@ -19,7 +19,7 @@ Acesso para teste da área ADM:
 * Login: `admin@admin.com`
 * Password: `admin123`
 
-OBS: Acesso e Persistencia dos dados são apenas para teste, não sendo uma prática correta adotada por mim em outros projetos.
+OBS: Acesso e Persistencia dos dados são apenas para teste, não sendo uma prática adotada por mim em outros projetos.
 
 ### 📋 Pré-requisitos
 
