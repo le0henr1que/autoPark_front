@@ -96,9 +96,12 @@ yarn dev
 
 ## 📚 Colaboradores
 
+
 | Felipe Silva  | Leonardo Henrique (eu) |
 | ------------- | ------------- |
 | ![image](https://user-images.githubusercontent.com/68018921/199553661-8fa0ca98-20f4-4f01-bb0d-7be82e43d61f.png) | ![image](https://user-images.githubusercontent.com/68018921/199553778-7a1e236b-d573-4563-b1ea-c16cb9b1ff7d.png)  |
+
+
 
 #### 📄 IMPORTANTE
 
