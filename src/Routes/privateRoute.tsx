@@ -2,7 +2,7 @@ import React from "react";
 import { Navigate } from 'react-router-dom'
 import {useAuth} from '../Providers/auth'
 
-const PrivateRoute = ({Component}) => {
+const PrivateRoute = ({Component}:any) => {
     const recoveredToken = localStorage.getItem('token')
     return (
     

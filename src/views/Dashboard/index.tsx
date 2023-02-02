@@ -38,6 +38,7 @@ function Dashboard() {
 
         switch (alterFor) {
             case "Listar":
+                
                 document.getElementById("cadastrar").style.display = "none";
                 document.getElementById("listar").style.display = "block";
                 // location.reload()

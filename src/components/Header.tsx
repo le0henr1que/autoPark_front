@@ -25,7 +25,7 @@
                         <a className="text-sm font-normal leading-relaxed inline-block mr-4 py-2 whitespace-nowrap  text-[#6B7280]" href="/Catalogo">
                             <h1>Comprar Carro</h1>
                         </a>
-                        <a className="text-sm font-normal leading-relaxed inline-block mr-4 py-2 whitespace-nowrap  text-[#6B7280]" href="/">
+                        <a className="text-sm font-normal leading-relaxed inline-block mr-4 py-2 whitespace-nowrap  text-[#6B7280]" href="/SellCar">
                             <h1>Vender Carro</h1>
                         </a>
                         <a className="text-sm font-normal leading-relaxed inline-block mr-4 py-2 whitespace-nowrap  text-[#6B7280]" href="/">

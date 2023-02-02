@@ -3,27 +3,16 @@ import { MagnifyingGlass, Funnel, CaretLeft , CaretRight  } from "phosphor-react
 import Header from '../../components/Header';
 import {X} from 'phosphor-react';
 import Load from '../../components/load';
+// @ts-ignore
 import * as Accordion from '@radix-ui/react-accordion';
-
-
 import CardBuy from "../../components/CardBuyCar"
 import api from "../../Services/api"
-
-// import img from "C:/Users/leona/Desktop/www/Desafio-Verzel/Back-End/desafio-varzel-Back-end/uploads/5d3125665b218431ea0abea4b4602dde.png"
-
 import '../../input.css';
 
+import {Category, DataCar} from "../../@types/types"
 
-interface DataCar {
-  city:string,
-  name:string
-  brand:string, 
-  model:string, 
-  year:string, 
-  km:string, 
-  price:number,
-  image:string
-}
+
+
 
 function Catalogo() {
 
@@ -33,41 +22,58 @@ function Catalogo() {
   const [filteredResults, setFilteredResults] = useState<DataCar[]>([]);
   const [dataLength, setDataLength] = useState<number>();
   const [quantPagination, setQuantPagination] = useState<number[]>([]);
-  const [pill, setPill] = useState<String[]>([])
-  const [filterField, setFilterField] = useState<String[]>([])
+  const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
+  
+  const [sortElement, setSortElement] = useState<String>("sort=-1");
 
   var staateFilters = ["São Paulo - SP", "Guarulhos - SP", "Belo Horizonte - MG", "Rio de Janeiro - RJ"];
-
   var yearFilter = [];
 
   for(var y = 2017; y < 2023; y++){
     yearFilter.push(y)
   }
 
-  const handlePill = (value:any, category:any) => {
+  const handleSetElement = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    event.target.value == "option1" &&  setSortElement("sort=-1")
+    event.target.value == "option2" &&  setSortElement("sort=1")
+    setFilteredResults([])
+    setLoad(true)
+    listCardCar(`${sortElement}&pageSize=12&page=1`)
+  }
 
-    if (pill.hasOwnProperty(category)) {
-      pill[category] = value;
-    } else {
-      pill[category] = value;
+  const handleFilterClick = (name:string, items:any) => {
+    window.scrollTo(40, 0);
+    setLoad(true)
+    setFilteredResults([])
+   
+    let obj = {name:name, items: items}
+    let duplicate = selectedCategories.find(({name}) => name == obj.name);
+    if (!duplicate) {
+      setSelectedCategories([...selectedCategories, obj]);
     }
-    console.log(pill)
+    console.log(selectedCategories)
+    var result = selectedCategories.map(({name, items}) => `${name}=${items}`).join('&');
+    console.log(result)
+    listCardCar(`${sortElement}&pageSize=12&page=1&${result}`)
 
-    listCardCar(`pageSize=12&page=1`)
+  };
+ 
+  const hendleRemoveThisElement = (name:string, items:any) => {
+    setSelectedCategories(selectedCategories.filter(item => item.name !== name));
   }
   
   const handlePagination = (index:number) => {
     if(index == 0){
-      listCardCar("pageSize=12&page=1")
+      listCardCar(`${sortElement}&pageSize=12&page=1`)
     }else{
-      listCardCar(`pageSize=12&page=${index * 12}`)
+      listCardCar(`${sortElement}&pageSize=12&page=${index * 12}`)
     }
-    setFilteredResults([])
     window.scrollTo(40, 0);
     setLoad(true)
+    setFilteredResults([])
   }
 
-  const listCardCar = (queryPagination) => {
+  const listCardCar = (queryPagination:string) => {
     api.get(`/list/auto?${queryPagination}`)
     .then((response) =>{
       console.log(response.data.Cars.count)
@@ -92,9 +98,13 @@ function Catalogo() {
     })
   }
   useEffect(() => {
-    listCardCar(`pageSize=12&page=1`)
+    
+    var result = selectedCategories.map(content => content.name+"="+content.items).join('&');
+    console.log(result)
+    listCardCar(`${sortElement}&pageSize=12&page=1&${result}`)
+
       
-    }, [])
+    }, [selectedCategories])
     
    
     
@@ -120,7 +130,16 @@ function Catalogo() {
 
               <div className='flex justify-between items-center mb-[40px]'>
                 <div className='w-[521px] leading-3'>
+                {
+                load == true ? 
+
+                  <div className='w-full flex justify-center'>
+                      <Load />
+                  </div>
+                  :
                   <h1 className='leading-[116%] text-[#1E1A17] font-extrabold text-[18px] mt-[-10px]'>Encontramos <span className='text-[#E1861B]'>{dataLength} veículos</span> a partir dos filtros selecionados</h1>
+
+                }
                 </div>
                 <div className="mb-4">
                     <input className="border border-[#B9B8B7] w-[383px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center" id="username" type="text" placeholder="Pesquisar" onChange={(e) => searchItems(e.target.value)}/>
@@ -131,15 +150,15 @@ function Catalogo() {
               <div className='flex justify-between items-center mb-[24px]'>
                 <div className='w-[521px] leading-3 flex justify-start gap-[16px] items-center'>
                   {
-                   
-                      
-                      <div className={`gap-[12px] flex justify-around items-center  h-[36px] p-[10px] bg-[#F0F1F2] text-[14px] rounded-[38px]`} >{pill.city} <X size={16} weight="light" /></div>
-                      // <div className={`gap-[12px] flex justify-around items-center  h-[36px] p-[10px] bg-[#F0F1F2] text-[14px] rounded-[38px]`} >{element.year} <X size={16} weight="light" /></div>
-
-                   
+                      selectedCategories.map((index) => (
+                        <div className={`gap-[12px] flex justify-around items-center  h-[36px] p-[10px] bg-[#F0F1F2] text-[14px] rounded-[38px]`} >
+                          {index.items} 
+                          <X size={16} weight="light" className="cursor-pointer" onClick={() => hendleRemoveThisElement(index.name, index.items)}/>
+                        </div>
+                      ))
                   }
                  
-                  <div className='text-[12px]'>Remover Filtros</div>
+                  {selectedCategories.length !== 0 && <div className='text-[12px] cursor-pointer' onClick={() => setSelectedCategories([])}>Remover Filtros</div>}
 
                 </div>
 
@@ -147,9 +166,9 @@ function Catalogo() {
                   <div className='w-[521px] leading-3'>
                     <h1 className='leading-[116%] text-[#6B7280] font-extrabold text-[12px] ml-[5px] mb-[-20px]'>Classificar</h1>
                   </div>
-                  <select className="w-[146px] h-[56px] bg-white rounded-[8px] flex flex-row items-center float-left">
-                    <option>Menor preço</option>
-                    <option>Maior preço</option>
+                  <select className="w-[146px] h-[56px] bg-white rounded-[8px] flex flex-row items-center float-left" onChange={handleSetElement}>
+                    <option value="option1" className="cursor-pointer">Menor preço</option>
+                    <option value="option2" className="cursor-pointer">Maior preço</option>
                   </select>
                 </div>  
 
@@ -164,7 +183,7 @@ function Catalogo() {
                     <Accordion.AccordionTrigger className="cursor-pointer font-bold text-[18px] text-[#1E1A17]">Estado</Accordion.AccordionTrigger>
                     {
                       staateFilters.map((index) => (
-                        <Accordion.AccordionContent className="ml-[10px] mb-[20px] whitespace-nowrap cursor-pointer mt-[20px] text-[#1E1A17]" onClick={() =>handlePill(index, "city") }>{index}</Accordion.AccordionContent>
+                        <Accordion.AccordionContent className="ml-[10px] mb-[20px] whitespace-nowrap cursor-pointer mt-[20px] text-[#1E1A17]" onClick={() =>handleFilterClick("city", index) }>{index}</Accordion.AccordionContent>
                       ))
                     }
                    
@@ -172,10 +191,10 @@ function Catalogo() {
 
                   <Accordion.AccordionItem value="item-2" className="mt-[16px] border-t pt-[16px] text-[#1E1A17]">
                     <Accordion.AccordionTrigger className="cursor-pointer font-bold text-[18px] text-[#1E1A17]">Ano</Accordion.AccordionTrigger>
-                    {/* yearFilter */}
+          
                     {
                       yearFilter.map((index) => (
-                        <Accordion.AccordionContent className="ml-[10px] mb-[20px] whitespace-nowrap cursor-pointer mt-[20px] text-[#1E1A17]" onClick={() =>handlePill(index, "year") }>{index}</Accordion.AccordionContent>
+                        <Accordion.AccordionContent className="ml-[10px] mb-[20px] whitespace-nowrap cursor-pointer mt-[20px] text-[#1E1A17]" onClick={() =>handleFilterClick("year", index) }>{index}</Accordion.AccordionContent>
                       ))
                     }
                     
@@ -214,19 +233,22 @@ function Catalogo() {
                 <div className='w-full flex justify-center'>
                       <Load />
                   </div>}
+                  {filteredResults.length == 0 && <p>Nenhum Veículo Encontrado</p>}
                   {
-                    filteredResults.map((index) => (
-                      <CardBuy 
-                        
-                        image={index.image}
-                        city={index.city} 
-                        brand={index.brand} 
-                        model={index.model} 
-                        year={index.year} 
-                        km={index.km} 
-                        price={index.price} 
-                        name={index.name}/>
-                    ))
+                   filteredResults.map(({image, city, brand, model, year, km, price, name}) => (
+                    
+                    <CardBuy 
+                      image={image}
+                      city={city} 
+                      brand={brand} 
+                      model={model} 
+                      year={year} 
+                      km={km} 
+                      price={price} 
+                      name={name}
+                      />
+                  ))
+                  
                   }
                 
                 </div>
