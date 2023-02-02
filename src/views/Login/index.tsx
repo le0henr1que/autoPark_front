@@ -66,7 +66,7 @@ function Login() {
         <div className='w-[100%] h-screen bg-[#FFFF] flex justify-center items-center'>
             <div className="w-[541px] h-screen bg-white flex justify-center items-center">
                 
-                <div className='flex flex-col justify-center h-[687px] items-center'>
+                <div className='flex flex-col justify-center h-[687px] items-center shadow-2xl rounded-[10px] border-[#B9B8B7] p-[40px]'>
 
                     <img src="/Símbolo-texto-vertical.svg" className="w-[242px] h-[122px]" />
 
@@ -82,14 +82,20 @@ function Login() {
                             <h1 className="text-[#E1861B] text-[12px] float-right mt-[5px]">Esqueceu a senha</h1>
                         </div>    
                         {message}
-                        <div className='mt-[10px] flex-col justify-center'>
+                        <div className='mt-[10px] flex-col flex justify-center w-[100%] items-center'>
                             <button type="submit" className={`text-black bg-[#E1861B] text-[#FFF] tracking-letterButton font-normal w-full h-[56px] text-sm flex justify-center items-center rounded-[4px] `}>
                                {loading == false ? "Entrar" : <Load/>}
                             </button> 
 
+                            <h1 className="text-[#E1861B] text-[15px] float-right mt-[5px] mt-[10px] mb-[10px]">OU</h1>
+
                            
+                         
                         </div>
                     </form>
+                    <button type="submit" className={`bg-[#FFF] text-[#E1861B] text-[15px]  border border-[#E1861B] tracking-letterButton font-normal w-full h-[56px] text-sm flex justify-center items-center rounded-[4px] `}>
+                        Cadastrar
+                    </button>
                     </div>
 
                 </div>
