@@ -349,7 +349,7 @@ function Home() {
 
         <div className="mt-[65px] flex justify-center ">
           <div className='w-[1216] flex justify-content gap-[32px]'>
-          {
+          {/* {
               catalogoList.map((index) => (
                 <CardBuy 
                   
@@ -362,7 +362,7 @@ function Home() {
                   price={index.price} 
                   name={index.name}/>
               ))
-            }
+            } */}
           </div>     
         </div>
       </div>
