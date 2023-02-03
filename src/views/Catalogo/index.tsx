@@ -34,11 +34,10 @@ function Catalogo() {
   }
 
   const handleSetElement = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    event.target.value == "option1" &&  setSortElement("sort=-1")
-    event.target.value == "option2" &&  setSortElement("sort=1")
+    event.target.value == "option1" &&  setSortElement("sort=1")
+    event.target.value == "option2" &&  setSortElement("sort=-1")
     setFilteredResults([])
     setLoad(true)
-    listCardCar(`${sortElement}&pageSize=12&page=1`)
   }
 
   const handleFilterClick = (name:string, items:any) => {
@@ -51,10 +50,7 @@ function Catalogo() {
     if (!duplicate) {
       setSelectedCategories([...selectedCategories, obj]);
     }
-    console.log(selectedCategories)
-    var result = selectedCategories.map(({name, items}) => `${name}=${items}`).join('&');
-    console.log(result)
-    listCardCar(`${sortElement}&pageSize=12&page=1&${result}`)
+
 
   };
  
@@ -97,18 +93,9 @@ function Catalogo() {
       console.log("[ERROR LIST] "+ error)
     })
   }
-  useEffect(() => {
-    
-    var result = selectedCategories.map(content => content.name+"="+content.items).join('&');
-    console.log(result)
-    listCardCar(`${sortElement}&pageSize=12&page=1&${result}`)
-
-      
-    }, [selectedCategories])
-    
+ 
    
-    
-    const searchItems = (searchValue:string) => {
+  const searchItems = (searchValue:string) => {
       setSearchInput(searchValue)
       if (searchInput !== '') {
           const filteredData = catalogoList.filter((item) => {
@@ -120,7 +107,16 @@ function Catalogo() {
           setFilteredResults(catalogoList)
       }
   }
-  console.log(quantPagination)
+  
+  useEffect(() => {
+    
+    var result = selectedCategories.map(content => content.name+"="+content.items).join('&');
+    console.log(result)
+    listCardCar(`${sortElement}&pageSize=12&page=1&${result}`)
+
+      
+  }, [selectedCategories, sortElement])
+    
 
   return  (
      <>
@@ -167,8 +163,8 @@ function Catalogo() {
                     <h1 className='leading-[116%] text-[#6B7280] font-extrabold text-[12px] ml-[5px] mb-[-20px]'>Classificar</h1>
                   </div>
                   <select className="w-[146px] h-[56px] bg-white rounded-[8px] flex flex-row items-center float-left" onChange={handleSetElement}>
-                    <option value="option1" className="cursor-pointer">Menor preço</option>
                     <option value="option2" className="cursor-pointer">Maior preço</option>
+                    <option value="option1" className="cursor-pointer">Menor preço</option>
                   </select>
                 </div>  
 

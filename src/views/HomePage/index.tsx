@@ -367,7 +367,7 @@ function Home() {
         </div>
       </div>
       <div className='flex justify-center mt-[50px]'>
-        <a href="/Catalogo">
+        <a href="/catalogo">
           <button className={`text-white bg-[#E1861B] tracking-letterButton font-normal w-[255px] h-[56px] text-sm flex flex-row justify-center items-center p-[8px 24px] gap-[10px] rounded-[4px] `} >
             Veja o catálogo completo
           </button> 
