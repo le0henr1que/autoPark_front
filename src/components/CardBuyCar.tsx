@@ -4,19 +4,11 @@ import {BellSimple, MapPin, MapPinLine} from 'phosphor-react'
 
 //  import {logo} from '/public/logo.png'
 
-export interface DataCar {
-    city:string,
-    name:string
-    brand:string, 
-    model:string, 
-    year:string, 
-    km:string, 
-    price:number,
-    image:string
-}
+import {DataCar} from '../@types/types'
 
-function CardCar({city, brand, model, year, km, price, name,  image}:DataCar){
-    function converterFloatReal(valor){
+
+function CardCar({_id, city, brand, model, year, km, price, name,  image}:DataCar){
+    function converterFloatReal(valor:string){
         var inteiro = null, decimal = null, c = null, j = null;
         var aux = new Array();
         valor = ""+valor;
@@ -81,9 +73,11 @@ function CardCar({city, brand, model, year, km, price, name,  image}:DataCar){
             <h1 className='text-[#898E99] text-[14px]'>Apenas</h1>
             <h1 className='text-[#E1861B] text-[28px]'>R$ {converterFloatReal(price)}</h1>
         </div>
-        <button className={`mb-[24px] tracking-letterButton leading-[150%] text-[#E1861B] font-semibold w-[248px] h-[40px] text-sm flex flex-row justify-center items-center p-[8px 24px] gap-[10px] rounded-[4px] border border-[#E1861B]`}>
-            Tenho interesse
-        </button>  
+        <a href={`/detail/${_id}`}>
+            <button className={`mb-[24px] tracking-letterButton leading-[150%] text-[#E1861B] font-semibold w-[248px] h-[40px] text-sm flex flex-row justify-center items-center p-[8px 24px] gap-[10px] rounded-[4px] border border-[#E1861B]`}>
+                Ver detalhes
+            </button>  
+        </a>
         </div>
     </div>
    )

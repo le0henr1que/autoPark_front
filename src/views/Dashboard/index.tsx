@@ -6,291 +6,283 @@ import * as Dialog from '@radix-ui/react-dialog';
 import CardEditCar from "../../components/CardEditCar"
 import * as ToggleGroup from '@radix-ui/react-toggle-group'
 import '../../input.css';
-import api from '../../Services/api';
 import { useNavigate } from 'react-router';
 import CurrencyInput from 'react-currency-input-field';
 
+import {X} from 'phosphor-react';
+// @ts-ignore
+import * as Accordion from '@radix-ui/react-accordion';
+import CardBuy from "../../components/CardBuyCar"
+import api from "../../Services/api"
+import '../../input.css';
 
-interface DataCar {
-    id:string, 
-    city:string,
-    name:string
-    brand:string, 
-    model:string, 
-    year:string, 
-    km:string, 
-    price:number,
-    image:string
-  }
-  
+import {Category, DataCar} from "../../@types/types"
+import Alert from '../../components/Alert';
+
+import {staateFilters, yearFilter} from "../../shared/defaultMenu"
 
 
 function Dashboard() {
-    const [loading, setLoading] = useState(false);
-    const [message, setMessage] = useState<string>("");
-    const [error, setError] = useState(false);
+  
     const [catalogoList, setCatalogoList] = useState<DataCar[]>([])
-
+    const [load, setLoad] = useState(true)
+    const [searchInput, setSearchInput] = useState('');
+    const [filteredResults, setFilteredResults] = useState<DataCar[]>([]);
+    const [dataLength, setDataLength] = useState<number>();
+    const [quantPagination, setQuantPagination] = useState<number[]>([]);
+    const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
+    const [sortElement, setSortElement] = useState<String>("sort=-1");
     
-    const navigate = useNavigate();
-
-    const handleClickAlterFunction = (alterFor:string) => {
-
-        switch (alterFor) {
-            case "Listar":
-                
-                document.getElementById("cadastrar").style.display = "none";
-                document.getElementById("listar").style.display = "block";
-                // location.reload()
-                break;
-            case "Cadastrar":
-                document.getElementById("listar").style.display = "none";
-                document.getElementById("cadastrar").style.display = "block";
-                break;
-            default:
-                break;
+    const alert = localStorage.getItem('created')
+  
+    window.scrollTo(40, 0);
+  
+    const handleSetElement = (event: React.ChangeEvent<HTMLSelectElement>) => {
+      event.target.value == "option1" &&  setSortElement("sort=1")
+      event.target.value == "option2" &&  setSortElement("sort=-1")
+      setFilteredResults([])
+      setLoad(true)
+    }
+  
+    const handleFilterClick = (name:string, items:any) => {
+      window.scrollTo(40, 0);
+      setLoad(true)
+      setFilteredResults([])
+     
+      let obj = {name:name, items: items}
+      let duplicate = selectedCategories.find(({name}) => name == obj.name);
+      if (!duplicate) {
+        setSelectedCategories([...selectedCategories, obj]);
+      }
+  
+  
+    };
+   
+    const hendleRemoveThisElement = (name:string, items:any) => {
+      setSelectedCategories(selectedCategories.filter(item => item.name !== name));
+    }
+    
+    const handlePagination = (index:number) => {
+      if(index == 0){
+        listCardCar(`${sortElement}&pageSize=12&page=1`)
+      }else{
+        listCardCar(`${sortElement}&pageSize=12&page=${index * 12}`)
+      }
+      window.scrollTo(40, 0);
+      setLoad(true)
+      setFilteredResults([])
+    }
+  
+    const listCardCar = (queryPagination:string) => {
+      api.get(`/list/auto?${queryPagination}`)
+      .then((response) =>{
+        console.log(response.data.Cars.count)
+        
+        setFilteredResults(response.data.Cars.listCar)
+        setCatalogoList(response.data.Cars.listCar)
+        setDataLength(response.data.Cars.count)
+        
+        var dataLenghtResult =  Math.round(response.data.Cars.count / 12)
+  
+        let dataCar = [];
+        for (let i = 0; i < dataLenghtResult; i++) {
+          dataCar.push(i);
         }
        
-    }
- 
-    const handleClickLogOut = () => {
-        navigate('/Login')
-        localStorage.clear();
-    }
-
-    async function handleCreatedCar(event: FormEvent){
-        event.preventDefault()
-        setLoading(true)
-        const formData = new FormData(event.target as HTMLFormElement)
-        const data = Object.fromEntries(formData)
-        // console.log(data.email)
-        const token = JSON.parse(localStorage.getItem('user')).token.token
-
-      
-        if(!data.localidade || !data.modelo || !data.marca || !data.detalhe || !data.ano || !data.km || !data.price ){
-            setMessage("Preencha todos os campos")
-            setError(true)
-            setLoading(false)
-            return
-        }
-        
-          
-
-        
-        try{
-            const config = {
-                headers: { Authorization: `Bearer ${token}` }
-            };
-            await api.post(`/create/auto`, {
-                "city":data.localidade,
-                "name":data.modelo,
-                "brand":data.marca, 
-                "model":data.detalhe, 
-                "year":data.ano, 
-                "km":data.km, 
-                "price":parseInt(data.price.replace("R$", "").replace(".", ""))
-           
-          }, config).then(async response => {
-
-            await response.data._id
-    
-            const header = {
-                headers: {  "Content-Type": "multipart/form-data" }
-            };
-
-            console.log(response.data._id)
-
-            var reader = new FileReader();
-            reader.readAsDataURL(data.image);
-
-                reader.onload = async function () {
-
-                    await api.post(`/upload/car/${response.data._id}/image`, {  
-                        "image":reader.result
-                    }, header).then(response => {
-                        console.log(response)
-
-                    }).catch(err => console.log(err))
-
-                }
-
-            await setMessage("Veiculo Criado com Sucesso")
-            await setLoading(false)
-
-            await location.reload()
-            
-          }).catch(error => {
-            console.log(error.response.status)
-            setError(true)
-
-            if(error.response.status !== 201){
-                setLoading(false)
-                setMessage("Erro ao cadastrar novo veiculo")
-            }
-
-            if(error.response.status == 403){
-                setLoading(false)
-                navigate('/Login')
-                localStorage.clear();
-            }
-        })
-         
-        }catch(err){
-          console.log(err)
-          setError(true)
-          setLoading(false)
-          setMessage("Ocorreu um erro inesperado para cadastrar novo veiculo")
-        }
-      }
-        
-  useEffect(() => {
-    
-    api.get(`/list/auto`)
-    .then((response) =>{
-      console.log(response.data)
-      
-      setCatalogoList(response.data.Cars)
-    //   setLoad(false)
-    })
-    .catch((error) => {
-      console.log("[ERROR LIST] "+ error)
-    })
+        setQuantPagination(dataCar)
   
-
-}, [])
-
-  return  (
-     <>
- 
-        <div className='flex justify-between'>
-            <div className='w-[256px] h-screen float-left bg-[white] fixed flex flex justify-center pt-[100px]'>
-                <div>
-                 <img src="/Símbolo-texto-horizontal.svg" className="w-[164px] h-[27px]" />
-                    <div className='mt-[100px] text-[14px] text-[#1E1A17] h-[410px]'>
-                        <h1 className='mb-[20px]'>Geral</h1>
-
-                        <h1 className='ml-[52px] gap-[16px] text-[16px] mb-[14px] cursor-pointer flex' onClick={() => handleClickAlterFunction("Listar")}><img src="/format-list-bulleted.svg"/> Listar Veículo</h1>
-                        <h1 className='ml-[52px] gap-[16px] text-[16px]  mb-[14px] cursor-pointer flex' onClick={() => handleClickAlterFunction("Cadastrar")}><img src="/car.svg"/>  Cadastrar Veículo</h1>
-                        <h1 className='ml-[52px] gap-[16px] text-[16px] cursor-pointer flex' onClick={handleClickLogOut}><img src="/exit-to-app.svg"/>Sair</h1>
-                    </div>
-                  
-                </div>
-
-            </div> 
-
-            <div className='w-full border  float-right bg-[#F8F8F8]' >
-                <div className='mt-[100px]'>
-
-                    <div className='h-[1000px]' id="listar">
-                        <h1 className="text-[#E1861B] text-[24px]  ml-[305px] ">Veículos cadastrados</h1>
-                        <h1 className="text-[#919499] text-[16px]  ml-[305px] mb-[50px]">Edite ou delete os veículos que esão cadastrados.</h1>
-                        <div className='w-[1030px]  bg-white ml-[300px] rounded-[15px] p-[50px]'>
-                            <h1 className="text-[#1E1A17] text-[24px] mb-[30px]">Lista de veículos</h1>
-                            {loading == true && 
-                                <div className='w-full flex justify-center'>
-                                    <Load />
-                                </div>}
-                            <div className='flex flex-wrap justify-end gap-[40px] '>
-                            {
-                                catalogoList.map((index) => (
-                                <CardEditCar 
-                                    id={index._id}
-                                    image={index.image}
-                                    city={index.city} 
-                                    brand={index.brand} 
-                                    model={index.model} 
-                                    year={index.year} 
-                                    km={index.km} 
-                                    price={index.price} 
-                                    name={index.name}/>
-                                ))
-                            }
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div className="hidden" id="cadastrar">
-                        <h1 className="text-[#E1861B] text-[24px]  ml-[350px] ">Cadastrar veículo</h1>
-                        <h1 className="text-[#919499] text-[16px]  ml-[350px] mb-[50px]">Cadastre os veículos que irão aparecer no site principal</h1>
-                        <div className='w-[682px] h-[780px] bg-white ml-[350px] rounded-[15px] p-[50px]'>
-                            <h1 className="text-[#1E1A17] text-[24px] ]">Insira os dados do veículo</h1>
-                            <form onSubmit={handleCreatedCar} className='mt-8 flex flex-col gap-4'>
-
-                                <div className='flex justify-between gap-[32px] mb-[24px]'>
-                                    <div>
-                                        <label className="block mb-[16px] text-sm font-medium text-[#1E1A17] ">Marca*</label>
-                                        <input id="marca" name="marca" className="border border-[#B9B8B7] w-[280px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center" placeholder='Ex: Fiat '/> 
-                    
-                                    </div>
-                                    <div>
-                                        <label className="block mb-[16px] text-sm font-medium text-[#1E1A17] ">Modelo*</label>
-                                        <input id="modelo" name="modelo" className="border border-[#B9B8B7] w-[280px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center"  placeholder='Ex: Uno'/> 
-                                    
-                                </div>
-                                </div>
-                            
-                                <div className='flex justify-between gap-[32px] mb-[24px]'>
-                                    <div>
-                                        <label className="block mb-[16px] text-sm font-medium text-[#1E1A17] ">Detalhes do veículo*</label>
-                                        <input id="detalhe" name="detalhe" className="border border-[#B9B8B7] w-[592px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center"  placeholder='EX: 1.4 MPFI LTZ 8V FLEX'/>
-                                
-                                    </div>
-                                </div>
-
-                                <div className='flex justify-between gap-[32px] mb-[24px]'>
-                                    <div>
-                                        <label className="block mb-[16px] text-sm font-medium text-[#1E1A17] ">Ano*</label>
-                                        <input id="ano" name="ano" className="border border-[#B9B8B7] w-[280px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center"  placeholder='EX: 2002'/>
-                                
-                                    </div>
-                                    <div>
-                                        <label className="block mb-[16px] text-sm font-medium text-[#1E1A17] ">localidade*</label>
-                                        <input id="localidade" name="localidade" className="border border-[#B9B8B7] w-[280px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center"  placeholder='EX: Osasco - SP'/>
-                                
-                                    </div>
-                                </div>
-
-                                <div className='flex justify-between gap-[32px] '>
-                                    <div>
-                                        <label className="block mb-[16px] text-sm font-medium text-[#1E1A17] ">Valor*</label>
-                                        <CurrencyInput intlConfig={{ locale: 'pt-BE', currency: 'BRL' }} id="price" name="price" className="border border-[#B9B8B7] w-[280px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center" placeholder='EX: R$ 70.00'/> 
-                                    </div>
-                                    <div>
-                                        <label className="block mb-[16px] text-sm font-medium text-[#1E1A17] ">Quilometragem*</label>
-                                        <input id="km" name="km" className="border border-[#B9B8B7] w-[280px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center"  placeholder='EX: 12.000 km'/> 
-                                        
-                                    </div>
-                                </div>
-                                <div className='w-[592px] '>
-                                    <div className="mb-3 w-96">
-                                        <label className="form-label inline-block text-gray-700">Anexar Foto</label>
-                                        <input id="image" name="image" className="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" type="file" />
-                                    </div>
-                                </div>
-                                {error == true && message  &&
-                                    <div className='w-full h-[56px] flex justify-center items-center bg-[#F8BFBF] text-[#D22E2E]'>
-                                        {message}
-                                    </div>}
-
-                                <button type="submit" className={`text-black bg-[#E1861B] text-[#FFF] tracking-letterButton font-normal w-full h-[56px] text-sm flex justify-center items-center rounded-[4px]  `}>
-                                    {loading == false ? "Cadastrar" : <Load/>}
-                                </button> 
-                            
-                            </form>
-
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-      
+        setLoad(false)
+      })
+      .catch((error) => {
+        console.log("[ERROR LIST] "+ error)
+      })
+    }
+   
      
-         
-    </>
-  )
+    const searchItems = (searchValue:string) => {
+        setSearchInput(searchValue)
+        if (searchInput !== '') {
+            const filteredData = catalogoList.filter((item) => {
+                return Object.values(item).join('').toLowerCase().includes(searchInput.toLowerCase())
+            })
+            setFilteredResults(filteredData)
+        }
+        else{
+            setFilteredResults(catalogoList)
+        }
+    }
+    setTimeout(() =>{ localStorage.setItem('created', "false")}, 2000)
+    useEffect(() => {
+      
+      var result = selectedCategories.map(content => content.name+"="+content.items).join('&');
+      console.log(result)
+      listCardCar(`${sortElement}&pageSize=12&page=1&${result}`)
+  
+        
+    }, [selectedCategories, sortElement])
+      
+  
+    return  (
+       <>
+          <Header />
+          {alert == "true" && <Alert/> }
+  
+          <div className='w-full flex justify-center'>
+              <div className='w-[1185px]  mt-[32px]'>
+  
+                <div className='flex justify-between items-center mb-[40px]'>
+                  <div className='w-[521px] leading-3'>
+                  {
+                  load == true ? 
+  
+                    <div className='w-full flex justify-center'>
+                        <Load />
+                    </div>
+                    :
+                    <h1 className='leading-[116%] text-[#1E1A17] font-extrabold text-[18px] mt-[-10px]'>Encontramos <span className='text-[#E1861B]'>{dataLength} veículos</span> a partir dos filtros selecionados</h1>
+  
+                  }
+                  </div>
+                  <div className="mb-4">
+                      <input className="border border-[#B9B8B7] w-[383px] h-[56px] rounded-[8px] p-[16px] flex flex-row items-center" id="username" type="text" placeholder="Pesquisar" onChange={(e) => searchItems(e.target.value)}/>
+                      <div className='mt-[-40px] ml-[340px]'><MagnifyingGlass size={25}/></div>
+                  </div>  
+                </div>
+  
+                <div className='flex justify-between items-center mb-[24px]'>
+                  <div className='w-[521px] leading-3 flex justify-start gap-[16px] items-center'>
+                    {
+                        selectedCategories.map((index) => (
+                          <div className={`gap-[12px] flex justify-around items-center  h-[36px] p-[10px] bg-[#F0F1F2] text-[14px] rounded-[38px]`} >
+                            {index.items} 
+                            <X size={16} weight="light" className="cursor-pointer" onClick={() => hendleRemoveThisElement(index.name, index.items)}/>
+                          </div>
+                        ))
+                    }
+                   
+                    {selectedCategories.length !== 0 && <div className='text-[12px] cursor-pointer' onClick={() => setSelectedCategories([])}>Remover Filtros</div>}
+  
+                  </div>
+  
+                  <div className="w-[146px]">
+                    <div className='w-[521px] leading-3'>
+                      <h1 className='leading-[116%] text-[#6B7280] font-extrabold text-[12px] ml-[5px] mb-[-20px]'>Classificar</h1>
+                    </div>
+                    <select className="w-[146px] h-[56px] bg-white rounded-[8px] flex flex-row items-center float-left" onChange={handleSetElement}>
+                      <option value="option2" className="cursor-pointer">Maior preço</option>
+                      <option value="option1" className="cursor-pointer">Menor preço</option>
+                    </select>
+                  </div>  
+  
+                </div>
+  
+                <div className='w-full flex justify-between '>
+                  <div className="w-[280px] h-[616px] static mt-[-19px]">
+      
+                  <Accordion.Root type="single" defaultValue="item-1" collapsible className="p-[20px]">
+                    
+                    <Accordion.AccordionItem value="item-1" className="border-t pt-[20px] ">
+                      <Accordion.AccordionTrigger className="cursor-pointer font-bold text-[18px] text-[#1E1A17]">Estado</Accordion.AccordionTrigger>
+                      {
+                        staateFilters.map((index) => (
+                          <Accordion.AccordionContent className="ml-[10px] mb-[20px] whitespace-nowrap cursor-pointer mt-[20px] text-[#1E1A17]" onClick={() =>handleFilterClick("city", index) }>{index}</Accordion.AccordionContent>
+                        ))
+                      }
+                     
+                    </Accordion.AccordionItem>
+  
+                    <Accordion.AccordionItem value="item-2" className="mt-[16px] border-t pt-[16px] text-[#1E1A17]">
+                      <Accordion.AccordionTrigger className="cursor-pointer font-bold text-[18px] text-[#1E1A17]">Ano</Accordion.AccordionTrigger>
+            
+                      {
+                        yearFilter.map((index) => (
+                          <Accordion.AccordionContent className="ml-[10px] mb-[20px] whitespace-nowrap cursor-pointer mt-[20px] text-[#1E1A17]" onClick={() =>handleFilterClick("year", index) }>{index}</Accordion.AccordionContent>
+                        ))
+                      }
+                      
+                     
+                   
+                    </Accordion.AccordionItem>
+  
+                    <Accordion.AccordionItem value="item-3" className="mt-[16px] border-t pt-[16px] text-[#1E1A17]">
+                      <Accordion.AccordionTrigger className="cursor-pointer font-bold text-[18px] text-[#1E1A17]">Marca/Modelo</Accordion.AccordionTrigger>
+                      <Accordion.AccordionContent>
+                        Yes! You can animate the Accordion with CSS or JavaScript.
+                      </Accordion.AccordionContent>
+                    </Accordion.AccordionItem>
+  
+                    <Accordion.AccordionItem value="item-4" className="mt-[16px] border-t pt-[16px] text-[#1E1A17]">
+                      <Accordion.AccordionTrigger className="cursor-pointer font-bold text-[18px] text-[#1E1A17]">Preço</Accordion.AccordionTrigger>
+                      <Accordion.AccordionContent>
+                        Yes! You can animate the Accordion with CSS or JavaScript.
+                      </Accordion.AccordionContent>
+                    </Accordion.AccordionItem>
+  
+                    <Accordion.AccordionItem value="item-5" className="mt-[16px] border-t pt-[16px] text-[#1E1A17]">
+                      <Accordion.AccordionTrigger className="cursor-pointer font-bold text-[18px] text-[#1E1A17]">Quilometragem</Accordion.AccordionTrigger>
+                      <Accordion.AccordionContent>
+                        Yes! You can animate the Accordion with CSS or JavaScript.
+                      </Accordion.AccordionContent>
+                    </Accordion.AccordionItem>
+                     
+  
+                  </Accordion.Root>
+  
+  
+                  </div>
+                  <div className='flex flex-wrap justify-end gap-[20px] '>
+                  {load == true && 
+                  <div className='w-full flex justify-center'>
+                        <Load />
+                    </div>}
+                    {filteredResults.length == 0 && <p>Nenhum Veículo Encontrado</p>}
+                    {
+                     filteredResults.map(({_id, image, city, brand, model, year, km, price, name}) => (
+                      
+                      <CardEditCar  
+                        _id={_id}
+                        image={image}
+                        city={city} 
+                        brand={brand} 
+                        model={model} 
+                        year={year} 
+                        km={km} 
+                        price={price} 
+                        name={name}
+                        />
+                    ))
+                    
+                    }
+                  
+                  </div>
+  
+                </div>
+                  <div className='flex ml-[500px] mt-[70px] mb-[100px]'>
+                    <div className='flex justify-center gap-[16px]'>
+                        
+                        <div className='border w-[56px] h-[56px] rounded-[6px] flex justify-center items-center'> {"<"} </div>
+  
+                          {
+                            quantPagination.map((index) => (
+                              <div className='border w-[56px] h-[56px] rounded-[6px] flex justify-center items-center cursor-pointer' onClick={() => handlePagination(index)}>{index + 1}</div>
+                            ))
+                          }
+                      
+                            
+                      
+                        <div className='border w-[56px] h-[56px] rounded-[6px] flex justify-center items-center'>{">"} </div>
+                    </div>
+                  </div>
+  
+  
+              </div>
+          </div>
+          <div className='flex w-full justify-center mt-[100px] bg-[#1E1A17]'>
+            <img src="/Footer.svg"/>
+          </div>
+      </>
+    )
+ 
 }
 
 export default Dashboard

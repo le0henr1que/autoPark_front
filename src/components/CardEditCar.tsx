@@ -4,7 +4,6 @@ import {BellSimple, MapPin, MapPinLine} from 'phosphor-react'
 import api from "../Services/api";
 import * as Dialog from '@radix-ui/react-dialog';
 import ModalCarEdit from "./ModalEditCar"
-//  import {logo} from '/public/logo.png'
 
 export interface DataCar {
     id:string, 
@@ -18,7 +17,7 @@ export interface DataCar {
     image:string
 }
 
-function CardEditCar({city, brand, model, year, km, price, name,  image, id}:DataCar){
+function CardEditCar({city, brand, model, year, km, price, name,  image, _id}:DataCar){
     function converterFloatReal(valor){
         var inteiro = null, decimal = null, c = null, j = null;
         var aux = new Array();
@@ -106,9 +105,9 @@ const hendleDeleteCar = (idCar:string) => {
             <h1 className='text-[#898E99] text-[14px]'>Apenas</h1>
             <h1 className='text-[#E1861B] text-[28px]'>R$ {converterFloatReal(price)}</h1>
         </div>
-        <ModalCarEdit id={id} city={city} name={name} brand={brand} model={model} year={year} km={km} price={price} image={image}/>
+        <ModalCarEdit id={_id} city={city} name={name} brand={brand} model={model} year={year} km={km} price={price} image={image}/>
 
-        <button onClick={() => hendleDeleteCar({id})} className={`mb-[24px] tracking-letterButton leading-[150%] text-[#D22E2E] font-semibold w-[248px] h-[40px] text-sm flex flex-row justify-center items-center p-[8px 24px] gap-[10px] rounded-[4px] border border-[#D22E2E]`}>
+        <button onClick={() => hendleDeleteCar({_id})} className={`mb-[24px] tracking-letterButton leading-[150%] text-[#D22E2E] font-semibold w-[248px] h-[40px] text-sm flex flex-row justify-center items-center p-[8px 24px] gap-[10px] rounded-[4px] border border-[#D22E2E]`}>
             Excluir Cadastro
         </button>    
         </div>

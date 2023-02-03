@@ -4,6 +4,7 @@ export interface Category {
   }
 
   export interface DataCar {
+    _id?:string,
     city:string,
     name:string
     brand:string, 

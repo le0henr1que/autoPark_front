@@ -7,6 +7,7 @@ import Home from "../views/HomePage/index";
 import Login from "../views/Login/index";
 import Catalogo from "../views/Catalogo/index";
 import SellCar from "../views/SellCar/index";
+import Detail from "../views/Detail/index";
 import Register from "../views/Register/index";
 import Dashboard from "../views/Dashboard/index";
 import VerifyAuthenticToken from './verifyAuthenticToken';
@@ -24,6 +25,7 @@ const Rout: React.FunctionComponent<RoutProps> = (props) =>{
               <Route  path="/login" element={<VerifyAuthenticToken Component={Login}/>} />
               <Route  path="/sellCar" element={<PrivateRoute Component={SellCar}/>} />
               <Route  path="/dashboard" element={<PrivateRoute Component={Dashboard} />} />
+              <Route  path="/detail/:id" element={<PrivateRoute Component={Detail} />} />
 
               <Route  path="/" element={<Home/>} />
               <Route  path="/register" element={ <Register/>} />

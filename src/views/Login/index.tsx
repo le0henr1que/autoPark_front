@@ -39,11 +39,17 @@ function Login() {
            
           }).then(response => {
             console.log(response)
-            localStorage.setItem('token',response.data.token) 
-            localStorage.setItem('user', JSON.stringify(response.data.user)) 
+            localStorage.setItem('token', JSON.stringify(response.data.token))
+            localStorage.setItem('user', JSON.stringify(response.data))
+
             setToken(response.data.token)
             setLoading(false)
-            navigate('/sellCar')
+            if(response.data.typeUser == "admin"){
+                navigate('/dashboard')
+            }else{
+                navigate(`/${window.location.search.substring(1).split('=')[1]}`)
+            }
+
           }).catch(error => {
             console.log(error.response.status)
             if(error.response.status !== 200){

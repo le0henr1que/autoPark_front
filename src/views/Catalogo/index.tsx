@@ -10,7 +10,9 @@ import api from "../../Services/api"
 import '../../input.css';
 
 import {Category, DataCar} from "../../@types/types"
+import Alert from '../../components/Alert';
 
+import {staateFilters, yearFilter} from "../../shared/defaultMenu"
 
 
 
@@ -23,15 +25,11 @@ function Catalogo() {
   const [dataLength, setDataLength] = useState<number>();
   const [quantPagination, setQuantPagination] = useState<number[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
-  
   const [sortElement, setSortElement] = useState<String>("sort=-1");
+  
+  const alert = localStorage.getItem('created')
 
-  var staateFilters = ["São Paulo - SP", "Guarulhos - SP", "Belo Horizonte - MG", "Rio de Janeiro - RJ"];
-  var yearFilter = [];
-
-  for(var y = 2017; y < 2023; y++){
-    yearFilter.push(y)
-  }
+  window.scrollTo(40, 0);
 
   const handleSetElement = (event: React.ChangeEvent<HTMLSelectElement>) => {
     event.target.value == "option1" &&  setSortElement("sort=1")
@@ -107,7 +105,7 @@ function Catalogo() {
           setFilteredResults(catalogoList)
       }
   }
-  
+  setTimeout(() =>{ localStorage.setItem('created', "false")}, 2000)
   useEffect(() => {
     
     var result = selectedCategories.map(content => content.name+"="+content.items).join('&');
@@ -121,6 +119,8 @@ function Catalogo() {
   return  (
      <>
         <Header />
+        {alert == "true" && <Alert/> }
+
         <div className='w-full flex justify-center'>
             <div className='w-[1185px]  mt-[32px]'>
 
@@ -231,9 +231,10 @@ function Catalogo() {
                   </div>}
                   {filteredResults.length == 0 && <p>Nenhum Veículo Encontrado</p>}
                   {
-                   filteredResults.map(({image, city, brand, model, year, km, price, name}) => (
+                   filteredResults.map(({_id, image, city, brand, model, year, km, price, name}) => (
                     
                     <CardBuy 
+                      _id={_id}
                       image={image}
                       city={city} 
                       brand={brand} 
