@@ -47,7 +47,8 @@ function Login() {
             if(response.data.typeUser == "admin"){
                 navigate('/dashboard')
             }else{
-                navigate(`/${window.location.search.substring(1).split('=')[1]}`)
+                
+                window.location.search == "" ? navigate("/") : navigate(`/${window.location.search.substring(1).split('=')[1]}`)
             }
 
           }).catch(error => {

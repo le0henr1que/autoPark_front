@@ -65,7 +65,7 @@ const hendleDeleteCar = (idCar:string) => {
     const config = {
         headers: { Authorization: `Bearer ${token}` }
     };
-    api.delete(`/delete/${idCar.id}/auto`, config).then(response => {
+    api.delete(`/delete/${idCar._id}/auto`, config).then(response => {
           
     console.log(response)
     location.reload()

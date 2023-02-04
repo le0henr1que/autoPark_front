@@ -1,16 +1,21 @@
-import { useEffect, useState } from "react"
-import { useParams } from "react-router"
+import { FormEvent, useEffect, useState } from "react"
+import { useNavigate, useParams } from "react-router"
 import Header from "../../components/Header"
 import api from "../../Services/api"
 import {DataCar} from "../../@types/types"
 import { MapPin } from "phosphor-react"
+import { useAuth } from "../../Providers/auth"
 
 
 function Detail(){
     const [dataCar, setDataCar] = useState<DataCar[]>([])
     const {id} = useParams()
 
-    function converterFloatReal(valor){
+    const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
+    const [message, setMessage] = useState<string>();
+
+    function converterFloatReal(valor:string){
         var inteiro = null, decimal = null, c = null, j = null;
         var aux = new Array();
         valor = ""+valor;
@@ -50,7 +55,43 @@ function Detail(){
         valor = inteiro+","+decimal;
         return valor;
     }
+    const token = JSON.parse(localStorage.getItem('token')).token
+
+    const user = JSON.parse(localStorage.getItem('user'))
+
+   const handleForm = async () => {
+        const config = {
+            headers: { Authorization: `Bearer ${token}` }
+        };
+
+        await api.post(`/sendEmail`, {
+        "email": user.email,
+        "message":`${user.name} demonstrou interesse no veiculo ${dataCar.brand} ${dataCar.name}, entre em contato para negociar.`
+       
+      }, config).then(response => {
+        console.log(response)
+        setLoading(false)
+        setMessage("Você demonstrou interesse no veiculo e um email foi enviado para ele, aguarde o anunciante entrar em contato com você.")
+
+      }).catch(error => {
+        console.log(error.response.status)
+        if(error.response.status !== 200){
+            setLoading(false)
+            setMessage("Erro ao Enviar Email")
+        }
+        if(error.response.status == 403){
+            setLoading(false)
+            localStorage.removeItem('token')
+            localStorage.removeItem('user')
+            navigate("/")
+        }
+    })
+     
    
+
+
+   }
+
     useEffect(() => {
         api.get(`/list/${id}/auto`)
         .then((response) =>{
@@ -66,9 +107,8 @@ function Detail(){
                     
                     <div className='flex justify-center h-[520px] w-screen items-start shadow-2xl rounded-[10px] border-[#B9B8B7] p-[40px] gap-[30px]'>
                         <img className="float-left w-[600px]" src={!dataCar.image ? "/Frame146Error.svg" : dataCar.image}/>
-                        <div className="w-[400px]">
-                           
-                            
+                                                    
+                            <div className="w-[400px]">
                                 <div className='flex justify-start mb-[8px]'>
                                     <h1 className='text-[#1E1A17] text-[30px]'>{dataCar.brand} {dataCar.name}</h1>
                                 </div>
@@ -83,14 +123,17 @@ function Detail(){
                                     <h1 className='text-[#E1861B] text-[28px]'>R$ {converterFloatReal(dataCar.price)}</h1>
                                 </div>
 
-                           
+                            
                                 <div className='flex justify-start mb-[20px] gap-[8px]'>
                                     <MapPin size={16} weight="fill" color={'#4C515B'} /><h1 className='text-[#4C515B] text-[14px]'>{dataCar.city}</h1>
                                 </div>
-                                <button className={`tracking-letterButton text-white font-semibold w-[202px] h-[40px] text-sm flex flex-row justify-center items-center p-[8px 24px] gap-[10px] bg-[#E1861B] rounded-[4px]`}>
-                                    Demonstrar Interesse
+                                <button type="submit" className={`tracking-letterButton text-white font-semibold w-[202px] h-[40px] text-sm flex flex-row justify-center items-center p-[8px 24px] gap-[10px] bg-[#E1861B] rounded-[4px] mb-[20px]`} onClick={handleForm}>
+                                    {loading == false ? "Demonstrar Interesse" : <Load/>}
                                 </button>
-                        </div>
+                                {message}
+                            </div>
+                  
+ 
                     </div>
                    
 
