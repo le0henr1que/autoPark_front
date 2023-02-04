@@ -12,6 +12,7 @@ import Register from "../views/Register/index";
 import Dashboard from "../views/Dashboard/index";
 import VerifyAuthenticToken from './verifyAuthenticToken';
 import PrivateRoute from './privateRoute';
+import ElementAdmRoute from "./admRoute"
 // import AuthProvider from "../Providers/Auth";
 
 
@@ -24,7 +25,7 @@ const Rout: React.FunctionComponent<RoutProps> = (props) =>{
             <Routes>
               <Route  path="/login" element={<VerifyAuthenticToken Component={Login}/>} />
               <Route  path="/sellCar" element={<PrivateRoute Component={SellCar}/>} />
-              <Route  path="/dashboard" element={<PrivateRoute Component={Dashboard} />} />
+              <Route  path="/dashboard" element={<ElementAdmRoute Component={Dashboard} />} />
               <Route  path="/detail/:id" element={<PrivateRoute Component={Detail} />} />
 
               <Route  path="/" element={<Home/>} />

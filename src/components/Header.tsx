@@ -30,7 +30,7 @@
                             <a className="text-sm font-normal leading-relaxed inline-block mr-4 py-2 whitespace-nowrap  text-[#E1861B]" href="/">
                                 <h1>Home</h1>
                             </a>
-                            <a className="text-sm font-normal leading-relaxed inline-block mr-4 py-2 whitespace-nowrap  text-[#6B7280]" href="/catalogo">
+                            <a className="text-sm font-normal leading-relaxed inline-block mr-4 py-2 whitespace-nowrap  text-[#6B7280]" href={"/catalogo"}>
                                 <h1>Comprar Carro</h1>
                             </a>
                             <a className="text-sm font-normal leading-relaxed inline-block mr-4 py-2 whitespace-nowrap  text-[#6B7280]" href="/sellCar">

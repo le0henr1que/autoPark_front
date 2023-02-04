@@ -6,7 +6,7 @@ const PrivateRoute = ({Component}:any) => {
     const recoveredToken = localStorage.getItem('token')
     return (
     
-        ! recoveredToken? <Navigate to={`/Login?redirect=${window.location.pathname.replace("/", "")}`} /> : <Component />
+        ! recoveredToken ? <Navigate to={`/Login?redirect=${window.location.pathname.replace("/", "")}`} /> : <Component />
 
         )
     };
