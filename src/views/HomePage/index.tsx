@@ -12,6 +12,7 @@ import api from '../../Services/api';
 
 
 interface DataCar {
+  _id?:string,
   city:string,
   name:string
   brand:string, 
@@ -28,11 +29,11 @@ function Home() {
 
   useEffect(() => {
     
-    api.get(`/list/auto`)
+    api.get(`/list/auto?pageSize=20&page=1`)
     .then((response) =>{
       console.log(response.data)
       
-      setCatalogoList(response.data.Cars)
+      setCatalogoList(response.data.Cars.listCar)
     })
     .catch((error) => {
       console.log("[ERROR LIST] "+ error)
@@ -349,10 +350,10 @@ function Home() {
 
         <div className="mt-[65px] flex justify-center ">
           <div className='w-[1216] flex justify-content gap-[32px]'>
-          {/* {
+          {
               catalogoList.map((index) => (
                 <CardBuy 
-                  
+                  _id={index._id}
                   image={index.image}
                   city={index.city} 
                   brand={index.brand} 
@@ -362,7 +363,7 @@ function Home() {
                   price={index.price} 
                   name={index.name}/>
               ))
-            } */}
+            }
           </div>     
         </div>
       </div>
