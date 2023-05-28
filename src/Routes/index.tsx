@@ -10,10 +10,7 @@ import SellCar from "../views/SellCar/index";
 import Detail from "../views/Detail/index";
 import Register from "../views/Register/index";
 import Dashboard from "../views/Dashboard/index";
-// import VerifyAuthenticToken from './verifyAuthenticToken';
-// import PrivateRoute from './privateRoute';
-// import ElementAdmRoute from "./admRoute"
-// import AuthProvider from "../Providers/Auth";
+
 
 
 export interface RoutProps {

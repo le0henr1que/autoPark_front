@@ -25,22 +25,7 @@ interface DataCar {
 
 
 function Home() {
-//   const [catalogoList, setCatalogoList] = useState<DataCar[]>([])
 
-//   useEffect(() => {
-    
-//     api.get(`/list/auto?pageSize=20&page=1`)
-//     .then((response) =>{
-//       console.log(response.data)
-      
-//       setCatalogoList(response.data.Cars.listCar)
-//     })
-//     .catch((error) => {
-//       console.log("[ERROR LIST] "+ error)
-//     })
-  
-
-// }, [])
   return  (
      <>
       <Header />
@@ -350,20 +335,7 @@ function Home() {
 
         <div className="mt-[65px] flex justify-center ">
           <div className='w-[1216] flex justify-content gap-[32px]'>
-          {/* {
-              catalogoList.map((index) => (
-                <CardBuy 
-                  _id={index._id}
-                  image={index.image}
-                  city={index.city} 
-                  brand={index.brand} 
-                  model={index.model} 
-                  year={index.year} 
-                  km={index.km} 
-                  price={index.price} 
-                  name={index.name}/>
-              ))
-            } */}
+        
           </div>     
         </div>
       </div>
