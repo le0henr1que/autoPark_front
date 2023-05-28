@@ -18,23 +18,23 @@ import ElementAdmRoute from "./admRoute"
 
 export interface RoutProps {
 }
-const Rout: React.FunctionComponent<RoutProps> = (props) =>{
-    return (
-        <BrowserRouter>
-        <AuthProvider>
-            <Routes>
-              <Route  path="/login" element={<VerifyAuthenticToken Component={Login}/>} />
-              <Route  path="/sellCar" element={<PrivateRoute Component={SellCar}/>} />
-              <Route  path="/dashboard" element={<ElementAdmRoute Component={Dashboard} />} />
-              <Route  path="/detail/:id" element={<PrivateRoute Component={Detail} />} />
+// const Rout: React.FunctionComponent<RoutProps> = (props) =>{
+    // return (
+      //   <BrowserRouter>
+      //   <AuthProvider>
+      //       <Routes>
+      //         <Route  path="/login" element={<VerifyAuthenticToken Component={Login}/>} />
+      //         <Route  path="/sellCar" element={<PrivateRoute Component={SellCar}/>} />
+      //         <Route  path="/dashboard" element={<ElementAdmRoute Component={Dashboard} />} />
+      //         <Route  path="/detail/:id" element={<PrivateRoute Component={Detail} />} />
 
-              <Route  path="/" element={<Home/>} />
-              <Route  path="/register" element={ <Register/>} />
-              <Route  path="/catalogo" element={<Catalogo/>} />
-            </Routes>
-          </AuthProvider>
-      </BrowserRouter>
-    )
-}
+      //         <Route  path="/" element={<Home/>} />
+      //         <Route  path="/register" element={ <Register/>} />
+      //         <Route  path="/catalogo" element={<Catalogo/>} />
+      //       </Routes>
+      //     </AuthProvider>
+      // </BrowserRouter>
+    // )
+// }
 
-export default Rout
+// export default Rout

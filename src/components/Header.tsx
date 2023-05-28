@@ -6,13 +6,13 @@
 
 
  function Header(){
-    const token = JSON.parse(localStorage.getItem('token'))
-    const user = JSON.parse(localStorage.getItem('user'))
+    // const token = JSON.parse(localStorage.getItem('token'))
+    // const user = JSON.parse(localStorage.getItem('user'))
 
-    const logOut = () => {
-        localStorage.removeItem('token')
-        localStorage.removeItem('user')
-    }
+    // const logOut = () => {
+    //     localStorage.removeItem('token')
+    //     localStorage.removeItem('user')
+    // }
     return (
         <nav className="relative flex flex-wrap items-center justify-center px-2 py-3 bg-white mb-3  h-[70px]">
             <div className="w-[1216px]">
@@ -44,7 +44,7 @@
                             </a>
                         </div>
 
-                    <div className="flex gap-[8px] p-0  flex-row ">
+                    {/* <div className="flex gap-[8px] p-0  flex-row ">
                         
                             {!token ? 
                                 <a className="text-sm font-semibold tracking-letterButton leading-relaxed inline-block mr-4 py-2 whitespace-nowrap  text-[#1E1A17;]" href="/register"><h1>Cadastre-se</h1></a> 
@@ -62,7 +62,7 @@
                                 {user.name.split(" ")[0][0].toUpperCase()}
                             </div>
                         }
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </nav>

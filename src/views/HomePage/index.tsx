@@ -25,22 +25,22 @@ interface DataCar {
 
 
 function Home() {
-  const [catalogoList, setCatalogoList] = useState<DataCar[]>([])
+//   const [catalogoList, setCatalogoList] = useState<DataCar[]>([])
 
-  useEffect(() => {
+//   useEffect(() => {
     
-    api.get(`/list/auto?pageSize=20&page=1`)
-    .then((response) =>{
-      console.log(response.data)
+//     api.get(`/list/auto?pageSize=20&page=1`)
+//     .then((response) =>{
+//       console.log(response.data)
       
-      setCatalogoList(response.data.Cars.listCar)
-    })
-    .catch((error) => {
-      console.log("[ERROR LIST] "+ error)
-    })
+//       setCatalogoList(response.data.Cars.listCar)
+//     })
+//     .catch((error) => {
+//       console.log("[ERROR LIST] "+ error)
+//     })
   
 
-}, [])
+// }, [])
   return  (
      <>
       <Header />
@@ -350,7 +350,7 @@ function Home() {
 
         <div className="mt-[65px] flex justify-center ">
           <div className='w-[1216] flex justify-content gap-[32px]'>
-          {
+          {/* {
               catalogoList.map((index) => (
                 <CardBuy 
                   _id={index._id}
@@ -363,7 +363,7 @@ function Home() {
                   price={index.price} 
                   name={index.name}/>
               ))
-            }
+            } */}
           </div>     
         </div>
       </div>
