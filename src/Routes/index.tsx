@@ -10,31 +10,29 @@ import SellCar from "../views/SellCar/index";
 import Detail from "../views/Detail/index";
 import Register from "../views/Register/index";
 import Dashboard from "../views/Dashboard/index";
-import VerifyAuthenticToken from './verifyAuthenticToken';
-import PrivateRoute from './privateRoute';
-import ElementAdmRoute from "./admRoute"
+// import VerifyAuthenticToken from './verifyAuthenticToken';
+// import PrivateRoute from './privateRoute';
+// import ElementAdmRoute from "./admRoute"
 // import AuthProvider from "../Providers/Auth";
 
 
 export interface RoutProps {
 }
-// const Rout: React.FunctionComponent<RoutProps> = (props) =>{
-    // return (
-      //   <BrowserRouter>
-      //   <AuthProvider>
-      //       <Routes>
-      //         <Route  path="/login" element={<VerifyAuthenticToken Component={Login}/>} />
-      //         <Route  path="/sellCar" element={<PrivateRoute Component={SellCar}/>} />
-      //         <Route  path="/dashboard" element={<ElementAdmRoute Component={Dashboard} />} />
-      //         <Route  path="/detail/:id" element={<PrivateRoute Component={Detail} />} />
+const Rout: React.FunctionComponent<RoutProps> = (props) =>{
+    return (
+        <BrowserRouter>
+            <Routes>
+              <Route  path="/login" element={<Login/>} />
+              <Route  path="/sellCar" element={<SellCar/>} />
+              <Route  path="/dashboard" element={<Dashboard />} />
+              <Route  path="/detail/:id" element={<Detail/>} />
 
-      //         <Route  path="/" element={<Home/>} />
-      //         <Route  path="/register" element={ <Register/>} />
-      //         <Route  path="/catalogo" element={<Catalogo/>} />
-      //       </Routes>
-      //     </AuthProvider>
-      // </BrowserRouter>
-    // )
-// }
+              <Route  path="/" element={<Home/>} />
+              <Route  path="/register" element={ <Register/>} />
+              <Route  path="/catalogo" element={<Catalogo/>} />
+            </Routes>
+      </BrowserRouter>
+    )
+}
 
-// export default Rout
+export default Rout
